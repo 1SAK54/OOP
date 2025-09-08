@@ -1,0 +1,7 @@
+.\.gitignore
+.gradle/
+build/
+.idea/
+.vscode/
+.DS_Store
+!gradle/wrapper/gradle-wrapper.jar
