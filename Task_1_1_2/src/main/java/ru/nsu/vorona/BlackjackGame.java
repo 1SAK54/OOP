@@ -10,10 +10,17 @@ public class BlackjackGame {
     private int dealerScore = 0;
     private int round = 0;
 
+    // 🔹 Конструктор для обычной игры
     public BlackjackGame(int decks) {
         deck = new Deck(decks);
     }
 
+    // 🔹 Конструктор для тестов (принимает готовую колоду)
+    public BlackjackGame(Deck deck) {
+        this.deck = deck;
+    }
+
+    // Функция для обычной игры
     public void play() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Добро пожаловать в Блэкджек!");
@@ -140,4 +147,70 @@ public class BlackjackGame {
         BlackjackGame game = new BlackjackGame(decks);
         game.play();
     }
+
+    // Функция для тестовой игры
+    public void playRoundForTest() {
+        round++;
+
+        // Раздать карты
+        player.getHand().add(deck.draw());
+        dealer.getHand().add(deck.draw());
+        player.getHand().add(deck.draw());
+        Card hidden = deck.draw();
+        dealer.setHidden(hidden);
+
+        // Проверка блекджека
+        boolean playerBJ = player.getHand().isBlackjack();
+        boolean dealerBJ = dealer.getHand().isBlackjack();
+
+        if (playerBJ && !dealerBJ) {
+            playerScore++;
+            return;
+        } else if (!playerBJ && dealerBJ) {
+            dealerScore++;
+            return;
+        } else if (playerBJ && dealerBJ) {
+            return; // ничья
+        }
+
+        // Ход дилера (эмулируем стандартное поведение)
+        while (dealer.getHand().getBestValue() < 17) {
+            dealer.getHand().add(deck.draw());
+            if (dealer.getHand().isBust()) {
+                playerScore++;
+                return;
+            }
+        }
+
+        // Сравнение
+        int p = player.getHand().getBestValue();
+        int d = dealer.getHand().getBestValue();
+        if (p > d && p <= 21 || d > 21) {
+            playerScore++;
+        } else if (d > p && d <= 21 || p > 21) {
+            dealerScore++;
+        }
+    }
+
+    // Возвращает текущее количество очков игрока (для тестов)
+    public int getPlayerHandValue() {
+        return player.getHand().getBestValue();
+    }
+
+    // Возвращает текущее количество очков дилера (для тестов)
+    public int getDealerHandValue() {
+        return dealer.getHand().getBestValue();
+    }
+
+
+    // Возвращает количество выигранных раундов игроком (для тестов)
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    // Возвращает количество выигранных раундов дилером (для тестов)
+    public int getDealerScore() {
+        return dealerScore;
+    }
+
 }
