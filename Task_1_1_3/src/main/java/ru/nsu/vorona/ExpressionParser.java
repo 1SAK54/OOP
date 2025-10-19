@@ -62,7 +62,9 @@ public class ExpressionParser {
             if (c == ')') {
                 level--;
             }
-            if (level < 0) return false;
+            if (level < 0) {
+                return false;
+            }
         }
         return level == 0;
     }
@@ -105,11 +107,9 @@ public class ExpressionParser {
             char c = expr.charAt(i);
             if (c == '(') {
                 level++;
-            }
-            else if (c == ')') {
+            } else if (c == ')') {
                 level--;
-            }
-            else if (level == 0 && (c == '+' || c == '-')) {
+            } else if (level == 0 && (c == '+' || c == '-')) {
                 return i;
             }
         }
