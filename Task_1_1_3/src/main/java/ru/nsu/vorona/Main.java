@@ -1,4 +1,4 @@
-package ru.nsu.vorona.Task_1_1_3;
+package ru.nsu.vorona;
 
 public class Main {
     public static void main(String[] args) {
