@@ -1,4 +1,4 @@
-package ru.nsu.vorona;
+package ru.nsu.vorona.Task_1_1_2;
 
 import java.util.LinkedList;
 import java.util.List;

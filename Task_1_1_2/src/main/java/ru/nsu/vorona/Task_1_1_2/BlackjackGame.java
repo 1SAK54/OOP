@@ -1,7 +1,10 @@
-package ru.nsu.vorona;
+package ru.nsu.vorona.Task_1_1_2;
 
 import java.util.Scanner;
 
+/**
+ * Класс {@code BlackjackGame} реализует консольную игру "Блэкджек".
+ */
 public class BlackjackGame {
     private final Deck deck;
     private final Player player = new Player();
@@ -10,17 +13,28 @@ public class BlackjackGame {
     private int dealerScore = 0;
     private int round = 0;
 
-    // 🔹 Конструктор для обычной игры
+    /**
+     * Создаёт новую игру с указанным количеством колод.
+     *
+     * @param decks количество стандартных колод (52 карты каждая)
+     */
     public BlackjackGame(int decks) {
         deck = new Deck(decks);
     }
 
-    // 🔹 Конструктор для тестов (принимает готовую колоду)
+    /**
+     * Конструктор для тестов — принимает заранее подготовленную колоду.
+     *
+     * @param deck объект {@link Deck}, который будет использоваться в игре
+     */
     public BlackjackGame(Deck deck) {
         this.deck = deck;
     }
 
-    // Функция для обычной игры
+    /**
+     * Основной игровой цикл. Реализует последовательные раунды игры
+     * с вводом пользователя из консоли.
+     */
     public void play() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Добро пожаловать в Блэкджек!");
@@ -33,10 +47,12 @@ public class BlackjackGame {
             System.out.println("Играть ещё? (y/n)");
             String ans = sc.nextLine().trim().toLowerCase();
             cont = ans.equals("y") || ans.equals("д") || ans.equals("yes");
+
             if (deck.remaining() < 15) {
                 System.out.println("Перетасовываю колоду...");
             }
-            // очистим руки
+
+            // Очистка рук перед новым раундом
             player.getHand().getCards().clear();
             dealer.getHand().getCards().clear();
         }
@@ -44,8 +60,13 @@ public class BlackjackGame {
         System.out.println("Игра окончена. Финальный счет " + playerScore + ":" + dealerScore);
     }
 
+    /**
+     * Один игровой раунд: раздача карт, ход игрока, ход дилера, сравнение результатов.
+     *
+     * @param sc объект {@link Scanner} для чтения ввода игрока
+     */
     private void playRound(Scanner sc) {
-        // Раздать: по две карты. У дилера вторая карта — закрытая.
+        // Раздача карт
         player.getHand().add(deck.draw());
         dealer.getHand().add(deck.draw());
         player.getHand().add(deck.draw());
@@ -55,9 +76,10 @@ public class BlackjackGame {
         System.out.println("Дилер раздал карты");
         System.out.println("Ваши карты: " + player.getHand().toDisplayString(false));
         System.out.println("Карты дилера: " + dealer.getHand().toDisplayString(true));
-        // Проверка блекджека
+
+        // Проверка блэкджека
         boolean playerBJ = player.getHand().isBlackjack();
-        boolean dealerBJ = dealer.getHand().isBlackjack(); // скрытая учитывается
+        boolean dealerBJ = dealer.getHand().isBlackjack();
         if (playerBJ || dealerBJ) {
             revealDealerHand();
             if (playerBJ && !dealerBJ) {
@@ -77,7 +99,7 @@ public class BlackjackGame {
         boolean playerTurnOver = false;
         while (!playerTurnOver) {
             System.out.println("-------");
-            System.out.println("Введите \"1\", чтобы взять карту, и \"0\", чтобы остановиться .");
+            System.out.println("Введите \"1\", чтобы взять карту, и \"0\", чтобы остановиться.");
             String in = sc.nextLine().trim();
             if (in.equals("1")) {
                 Card c = deck.draw();
@@ -116,7 +138,7 @@ public class BlackjackGame {
             }
         }
 
-        // Оба в пределах <=21 -> сравнение
+        // Сравнение результатов
         int p = player.getHand().getBestValue();
         int d = dealer.getHand().getBestValue();
         System.out.println("Результаты: игрок " + p + " vs дилер " + d);
@@ -131,35 +153,47 @@ public class BlackjackGame {
         }
     }
 
+    /**
+     * Открывает закрытую карту дилера и выводит его руку в консоль.
+     */
     private void revealDealerHand() {
         if (dealer.hasHidden()) {
-            System.out.println("Дилер открывает закрытую карту " + dealer.getHand().getCards().get(1).toString());
+            System.out.println("Дилер открывает закрытую карту " +
+                    dealer.getHand().getCards().get(1).toString());
             dealer.revealHidden();
         }
         System.out.println("Карты дилера: " + dealer.getHand().toDisplayString(false));
     }
 
+    /**
+     * Точка входа. Запускает игру.
+     *
+     * @param args первый аргумент может задавать количество колод (по умолчанию 3)
+     */
     public static void main(String[] args) {
         int decks = 3;
         if (args.length > 0) {
-            try { decks = Integer.parseInt(args[0]); } catch (Exception ignored) {}
+            try {
+                decks = Integer.parseInt(args[0]);
+            } catch (Exception ignored) {}
         }
         BlackjackGame game = new BlackjackGame(decks);
         game.play();
     }
 
-    // Функция для тестовой игры
+    /**
+     * Упрощённая версия игры для тестов — имитирует поведение раунда без пользовательского ввода.
+     */
     public void playRoundForTest() {
         round++;
 
-        // Раздать карты
+        // Раздача карт
         player.getHand().add(deck.draw());
         dealer.getHand().add(deck.draw());
         player.getHand().add(deck.draw());
         Card hidden = deck.draw();
         dealer.setHidden(hidden);
 
-        // Проверка блекджека
         boolean playerBJ = player.getHand().isBlackjack();
         boolean dealerBJ = dealer.getHand().isBlackjack();
 
@@ -173,7 +207,7 @@ public class BlackjackGame {
             return; // ничья
         }
 
-        // Ход дилера (эмулируем стандартное поведение)
+        // Ход дилера
         while (dealer.getHand().getBestValue() < 17) {
             dealer.getHand().add(deck.draw());
             if (dealer.getHand().isBust()) {
@@ -182,35 +216,49 @@ public class BlackjackGame {
             }
         }
 
-        // Сравнение
+        // Сравнение результатов
         int p = player.getHand().getBestValue();
         int d = dealer.getHand().getBestValue();
-        if (p > d && p <= 21 || d > 21) {
+        if ((p > d && p <= 21) || d > 21) {
             playerScore++;
-        } else if (d > p && d <= 21 || p > 21) {
+        } else if ((d > p && d <= 21) || p > 21) {
             dealerScore++;
         }
     }
 
-    // Возвращает текущее количество очков игрока (для тестов)
+    /**
+     * Возвращает текущее количество очков игрока.
+     *
+     * @return количество очков игрока
+     */
     public int getPlayerHandValue() {
         return player.getHand().getBestValue();
     }
 
-    // Возвращает текущее количество очков дилера (для тестов)
+    /**
+     * Возвращает текущее количество очков дилера.
+     *
+     * @return количество очков дилера
+     */
     public int getDealerHandValue() {
         return dealer.getHand().getBestValue();
     }
 
-
-    // Возвращает количество выигранных раундов игроком (для тестов)
+    /**
+     * Возвращает количество выигранных раундов игроком.
+     *
+     * @return количество побед игрока
+     */
     public int getPlayerScore() {
         return playerScore;
     }
 
-    // Возвращает количество выигранных раундов дилером (для тестов)
+    /**
+     * Возвращает количество выигранных раундов дилером.
+     *
+     * @return количество побед дилера
+     */
     public int getDealerScore() {
         return dealerScore;
     }
-
 }
