@@ -3,7 +3,7 @@ package ru.nsu.vorona;
 /**
  * Представляет операцию сложения двух выражений.
  */
-public class Add extends Expression{
+public class Add extends Expression {
     private Expression left;
     private Expression right;
 
@@ -48,11 +48,15 @@ public class Add extends Expression{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Add)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Add)) {
+            return false;
+        }
         Add other = (Add) obj;
 
-        return (left.equals(other.left) && right.equals(other.right)) ||
-                (left.equals(other.right) && right.equals(other.left));
+        return (left.equals(other.left) && right.equals(other.right))
+                || (left.equals(other.right) && right.equals(other.left));
     }
 }

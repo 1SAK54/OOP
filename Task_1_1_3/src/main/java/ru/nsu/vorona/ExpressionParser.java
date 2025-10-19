@@ -56,8 +56,12 @@ public class ExpressionParser {
     private static boolean isBalanced(String s) {
         int level = 0;
         for (char c : s.toCharArray()) {
-            if (c == '(') level++;
-            if (c == ')') level--;
+            if (c == '(') {
+                level++;
+            }
+            if (c == ')') {
+                level--;
+            }
             if (level < 0) return false;
         }
         return level == 0;

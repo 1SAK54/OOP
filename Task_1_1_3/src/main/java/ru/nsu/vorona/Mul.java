@@ -3,7 +3,7 @@ package ru.nsu.vorona;
 /**
  * Представляет операцию умножения двух выражений.
  */
-public class Mul extends Expression{
+public class Mul extends Expression {
     private Expression left;
     private Expression right;
 
@@ -66,11 +66,15 @@ public class Mul extends Expression{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Mul)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Mul)) {
+            return false;
+        }
         Mul other = (Mul) obj;
 
-        return (left.equals(other.left) && right.equals(other.right)) ||
-                (left.equals(other.right) && right.equals(other.left));
+        return (left.equals(other.left) && right.equals(other.right))
+                || (left.equals(other.right) && right.equals(other.left));
     }
 }

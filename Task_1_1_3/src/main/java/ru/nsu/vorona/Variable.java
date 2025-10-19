@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  * Представляет переменную в математическом выражении.
  */
-public class Variable extends Expression{
+public class Variable extends Expression {
     private String name;
 
     /**
@@ -44,8 +44,12 @@ public class Variable extends Expression{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Variable)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Variable)) {
+            return false;
+        }
         Variable other = (Variable) obj;
         return name.equals(other.name);
     }

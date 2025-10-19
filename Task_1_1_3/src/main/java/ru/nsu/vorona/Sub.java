@@ -3,7 +3,7 @@ package ru.nsu.vorona;
 /**
  * Представляет операцию вычитания двух выражений.
  */
-public class Sub extends Expression{
+public class Sub extends Expression {
     private Expression left;
     private Expression right;
 
@@ -52,8 +52,12 @@ public class Sub extends Expression{
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Sub)) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (!(obj instanceof Sub)) {
+            return false;
+        }
         Sub other = (Sub) obj;
         return left.equals(other.left) && right.equals(other.right);
     }
