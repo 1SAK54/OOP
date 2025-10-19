@@ -77,7 +77,7 @@ public class ExpressionParser {
         try {
             Double.parseDouble(s);
             return true;
-        } catch (NumberFormatException e){
+        } catch (NumberFormatException e) {
             return false;
         }
     }
@@ -103,8 +103,12 @@ public class ExpressionParser {
 
         for (int i = 0; i < expr.length(); i++) {
             char c = expr.charAt(i);
-            if (c == '(') level++;
-            else if (c == ')') level--;
+            if (c == '(') {
+                level++;
+            }
+            else if (c == ')') {
+                level--;
+            }
             else if (level == 0 && (c == '+' || c == '-')) {
                 return i;
             }
@@ -113,8 +117,12 @@ public class ExpressionParser {
         level = 0;
         for (int i = 0; i < expr.length(); i++) {
             char c = expr.charAt(i);
-            if (c == '(') level++;
-            else if (c == ')') level--;
+            if (c == '(') {
+                level++;
+            }
+            else if (c == ')') {
+                level--;
+            }
             else if (level == 0 && (c == '*' || c == '/')) {
                 return i;
             }

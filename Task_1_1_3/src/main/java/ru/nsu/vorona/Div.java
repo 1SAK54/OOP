@@ -25,8 +25,7 @@ public class Div extends Expression {
 
     @Override
     public Expression derivative(String var) {
-        return new Div (
-                new Sub(
+        return new Div (new Sub(
                     new Mul(left.derivative(var), right),
                     new Mul(left, right.derivative(var))
                 ),

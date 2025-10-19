@@ -9,6 +9,7 @@ import java.util.Map;
 public class AssignmentParser {
     /**
      * Парсит строку с присваиваниями переменных и их значений.gradle jacocoTestCoverageVerification
+     *
      * @param assignments строка вида "x = 10; y = 5"
      * @return карта с именами переменных и их значениями
      */
