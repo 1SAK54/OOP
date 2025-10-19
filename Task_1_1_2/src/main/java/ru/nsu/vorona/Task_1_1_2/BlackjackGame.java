@@ -23,32 +23,25 @@ public class BlackjackGame {
     }
 
     /**
-     * Конструктор для тестов — принимает заранее подготовленную колоду.
-     *
-     * @param deck объект {@link Deck}, который будет использоваться в игре
-     */
-    public BlackjackGame(Deck deck) {
-        this.deck = deck;
-    }
-
-    /**
      * Основной игровой цикл. Реализует последовательные раунды игры
      * с вводом пользователя из консоли.
      */
     public void play() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Добро пожаловать в Блэкджек!");
-        boolean cont = true;
-        while (cont) {
+        boolean continueGame = true;
+
+        while (continueGame) {
             round++;
             System.out.println("Раунд " + round);
             playRound(sc);
             System.out.println("Счет " + playerScore + ":" + dealerScore);
-            System.out.println("Играть ещё? (y/n)");
-            String ans = sc.nextLine().trim().toLowerCase();
-            cont = ans.equals("y") || ans.equals("д") || ans.equals("yes");
 
-            if (deck.remaining() < 15) {
+            // 🔹 Проверяем, хочет ли игрок продолжать
+            continueGame = askToContinue(sc);
+
+            // 🔹 Проверяем состояние колоды, если игра продолжается
+            if (continueGame && deck.remaining() < 15) {
                 System.out.println("Перетасовываю колоду...");
             }
 
@@ -56,8 +49,21 @@ public class BlackjackGame {
             player.getHand().getCards().clear();
             dealer.getHand().getCards().clear();
         }
+
         sc.close();
         System.out.println("Игра окончена. Финальный счет " + playerScore + ":" + dealerScore);
+    }
+
+    /**
+     * Запрашивает у пользователя, хочет ли он сыграть ещё один раунд.
+     *
+     * @param sc объект {@link Scanner} для чтения ввода
+     * @return true, если пользователь выбрал "да"
+     */
+    private boolean askToContinue(Scanner sc) {
+        System.out.println("Играть ещё? (y/n)");
+        String ans = sc.nextLine().trim().toLowerCase();
+        return ans.equals("y") || ans.equals("д") || ans.equals("yes");
     }
 
     /**
@@ -139,19 +145,20 @@ public class BlackjackGame {
         }
 
         // Сравнение результатов
-        int p = player.getHand().getBestValue();
-        int d = dealer.getHand().getBestValue();
-        System.out.println("Результаты: игрок " + p + " vs дилер " + d);
-        if (p > d) {
+        int playerScoreValue = player.getHand().getBestValue();
+        int dealerScoreValue = dealer.getHand().getBestValue();
+        System.out.println("Результаты: игрок " + playerScoreValue + " vs дилер " + dealerScoreValue);
+        if (playerScoreValue > dealerScoreValue) {
             System.out.println("Вы выиграли раунд!");
             playerScore++;
-        } else if (p < d) {
+        } else if (playerScoreValue < dealerScoreValue) {
             System.out.println("Вы проиграли раунд.");
             dealerScore++;
         } else {
             System.out.println("Ничья.");
         }
     }
+
 
     /**
      * Открывает закрытую карту дилера и выводит его руку в консоль.
@@ -224,6 +231,16 @@ public class BlackjackGame {
         } else if ((d > p && d <= 21) || p > 21) {
             dealerScore++;
         }
+    }
+
+
+    /**
+     * Конструктор для тестов — принимает заранее подготовленную колоду.
+     *
+     * @param deck объект {@link Deck}, который будет использоваться в игре
+     */
+    BlackjackGame(Deck deck) {
+        this.deck = deck;
     }
 
     /**

@@ -1,7 +1,9 @@
 package ru.nsu.vorona.Task_1_1_2;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class DeckTest {
     @Test
