@@ -255,7 +255,7 @@ public class BlackjackGame {
      *
      * @return количество очков игрока
      */
-    private int getPlayerHandValue() {
+    public int getPlayerHandValue() {
         return player.getHand().getBestValue();
     }
 
@@ -264,7 +264,7 @@ public class BlackjackGame {
      *
      * @return количество очков дилера
      */
-    private int getDealerHandValue() {
+    public int getDealerHandValue() {
         return dealer.getHand().getBestValue();
     }
 
@@ -273,7 +273,7 @@ public class BlackjackGame {
      *
      * @return количество побед игрока
      */
-    private int getPlayerScore() {
+    public int getPlayerScore() {
         return playerScore;
     }
 
@@ -282,7 +282,7 @@ public class BlackjackGame {
      *
      * @return количество побед дилера
      */
-    private int getDealerScore() {
+    public int getDealerScore() {
         return dealerScore;
     }
 }
