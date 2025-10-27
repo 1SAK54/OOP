@@ -1,6 +1,9 @@
-package ru.nsu.vorona.Task_1_1_2;
+package ru.nsu.vorona;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Класс представляет колоду игральных карт.

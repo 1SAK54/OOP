@@ -1,6 +1,8 @@
-package ru.nsu.vorona.Task_1_1_2;
+package ru.nsu.vorona;
 
 import org.junit.jupiter.api.Test;
+import ru.nsu.vorona.Rank;
+import ru.nsu.vorona.Suit;
 
 import java.util.List;
 

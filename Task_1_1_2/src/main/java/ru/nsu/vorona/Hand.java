@@ -1,6 +1,8 @@
-package ru.nsu.vorona.Task_1_1_2;
+package ru.nsu.vorona;
 
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Класс представляет руку игрока или дилера.

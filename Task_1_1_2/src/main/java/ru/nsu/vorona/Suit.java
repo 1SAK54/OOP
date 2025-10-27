@@ -1,4 +1,4 @@
-package ru.nsu.vorona.Task_1_1_2;
+package ru.nsu.vorona;
 
 /**
  * Перечисление, представляющее масти игральных карт.

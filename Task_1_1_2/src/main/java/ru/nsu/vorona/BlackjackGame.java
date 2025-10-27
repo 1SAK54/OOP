@@ -1,6 +1,7 @@
-package ru.nsu.vorona.Task_1_1_2;
+package ru.nsu.vorona;
 
 import java.util.Scanner;
+import java.util.Set;
 
 /**
  * Класс {@code BlackjackGame} реализует консольную игру "Блэкджек".
@@ -12,6 +13,8 @@ public class BlackjackGame {
     private int playerScore = 0;
     private int dealerScore = 0;
     private int round = 0;
+    private static final String TAKE_CARD_KEY = "1";
+    private static final String STAND_KEY = "0";
 
     /**
      * Создаёт новую игру с указанным количеством колод.
@@ -37,10 +40,10 @@ public class BlackjackGame {
             playRound(sc);
             System.out.println("Счет " + playerScore + ":" + dealerScore);
 
-            // 🔹 Проверяем, хочет ли игрок продолжать
+            // Проверяем, хочет ли игрок продолжать
             continueGame = askToContinue(sc);
 
-            // 🔹 Проверяем состояние колоды, если игра продолжается
+            // Проверяем состояние колоды, если игра продолжается
             if (continueGame && deck.remaining() < 15) {
                 System.out.println("Перетасовываю колоду...");
             }
@@ -54,6 +57,8 @@ public class BlackjackGame {
         System.out.println("Игра окончена. Финальный счет " + playerScore + ":" + dealerScore);
     }
 
+    private static final Set<String> YES_ANSWERS = Set.of("y", "д", "yes");
+
     /**
      * Запрашивает у пользователя, хочет ли он сыграть ещё один раунд.
      *
@@ -63,7 +68,7 @@ public class BlackjackGame {
     private boolean askToContinue(Scanner sc) {
         System.out.println("Играть ещё? (y/n)");
         String ans = sc.nextLine().trim().toLowerCase();
-        return ans.equals("y") || ans.equals("д") || ans.equals("yes");
+        return YES_ANSWERS.contains(ans);
     }
 
     /**
@@ -72,7 +77,6 @@ public class BlackjackGame {
      * @param sc объект {@link Scanner} для чтения ввода игрока
      */
     private void playRound(Scanner sc) {
-        // Раздача карт
         player.getHand().add(deck.draw());
         dealer.getHand().add(deck.draw());
         player.getHand().add(deck.draw());
@@ -83,7 +87,6 @@ public class BlackjackGame {
         System.out.println("Ваши карты: " + player.getHand().toDisplayString(false));
         System.out.println("Карты дилера: " + dealer.getHand().toDisplayString(true));
 
-        // Проверка блэкджека
         boolean playerBJ = player.getHand().isBlackjack();
         boolean dealerBJ = dealer.getHand().isBlackjack();
         if (playerBJ || dealerBJ) {
@@ -100,33 +103,27 @@ public class BlackjackGame {
             return;
         }
 
-        // Ход игрока
         System.out.println("Ваш ход");
         boolean playerTurnOver = false;
         while (!playerTurnOver) {
             System.out.println("-------");
             System.out.println("Введите \"1\", чтобы взять карту, и \"0\", чтобы остановиться.");
             String in = sc.nextLine().trim();
-            if (in.equals("1")) {
-                Card c = deck.draw();
-                player.getHand().add(c);
-                System.out.println("Вы открыли карту " + c.toString() + " (" + c.baseValue() + ")");
-                System.out.println("Ваши карты: " + player.getHand().toDisplayString(false));
-                System.out.println("Карты дилера: " + dealer.getHand().toDisplayString(true));
+            if (in.equals(TAKE_CARD_KEY)) {
+                takeCard(player, deck, true);
                 if (player.getHand().isBust()) {
                     System.out.println("Вы перебрали! (" + player.getHand().getBestValue() + ")");
                     System.out.println("Вы проиграли раунд.");
                     dealerScore++;
                     return;
                 }
-            } else if (in.equals("0")) {
+            } else if (in.equals(STAND_KEY)) {
                 playerTurnOver = true;
             } else {
                 System.out.println("Неверный ввод. Введите 1 или 0.");
             }
         }
 
-        // Ход дилера
         System.out.println("Ход дилера");
         System.out.println("-------");
         revealDealerHand();
@@ -144,7 +141,6 @@ public class BlackjackGame {
             }
         }
 
-        // Сравнение результатов
         int playerScoreValue = player.getHand().getBestValue();
         int dealerScoreValue = dealer.getHand().getBestValue();
         System.out.println("Результаты: игрок " + playerScoreValue + " vs дилер " + dealerScoreValue);
@@ -159,6 +155,20 @@ public class BlackjackGame {
         }
     }
 
+    /**
+     * Добавляет новую карту игроку и выводит обновлённое состояние руки.
+     *
+     * @param player игрок, которому добавляется карта
+     * @param deck колода, из которой берётся карта
+     * @param hideDealerCards если true, скрывает вторую карту дилера
+     */
+    private void takeCard(Player player, Deck deck, boolean hideDealerCards) {
+        Card c = deck.draw();
+        player.getHand().add(c);
+        System.out.println("Вы открыли карту " + c + " (" + c.baseValue() + ")");
+        System.out.println("Ваши карты: " + this.player.getHand().toDisplayString(false));
+        System.out.println("Карты дилера: " + dealer.getHand().toDisplayString(hideDealerCards));
+    }
 
     /**
      * Открывает закрытую карту дилера и выводит его руку в консоль.
@@ -194,7 +204,6 @@ public class BlackjackGame {
     public void playRoundForTest() {
         round++;
 
-        // Раздача карт
         player.getHand().add(deck.draw());
         dealer.getHand().add(deck.draw());
         player.getHand().add(deck.draw());
@@ -211,10 +220,9 @@ public class BlackjackGame {
             dealerScore++;
             return;
         } else if (playerBJ && dealerBJ) {
-            return; // ничья
+            return;
         }
 
-        // Ход дилера
         while (dealer.getHand().getBestValue() < 17) {
             dealer.getHand().add(deck.draw());
             if (dealer.getHand().isBust()) {
@@ -223,7 +231,6 @@ public class BlackjackGame {
             }
         }
 
-        // Сравнение результатов
         int p = player.getHand().getBestValue();
         int d = dealer.getHand().getBestValue();
         if ((p > d && p <= 21) || d > 21) {
@@ -248,7 +255,7 @@ public class BlackjackGame {
      *
      * @return количество очков игрока
      */
-    public int getPlayerHandValue() {
+    private int getPlayerHandValue() {
         return player.getHand().getBestValue();
     }
 
@@ -257,7 +264,7 @@ public class BlackjackGame {
      *
      * @return количество очков дилера
      */
-    public int getDealerHandValue() {
+    private int getDealerHandValue() {
         return dealer.getHand().getBestValue();
     }
 
@@ -266,7 +273,7 @@ public class BlackjackGame {
      *
      * @return количество побед игрока
      */
-    public int getPlayerScore() {
+    private int getPlayerScore() {
         return playerScore;
     }
 
@@ -275,7 +282,7 @@ public class BlackjackGame {
      *
      * @return количество побед дилера
      */
-    public int getDealerScore() {
+    private int getDealerScore() {
         return dealerScore;
     }
 }
