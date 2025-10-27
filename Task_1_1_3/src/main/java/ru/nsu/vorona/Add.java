@@ -1,11 +1,13 @@
 package ru.nsu.vorona;
 
+import java.util.Map;
+
 /**
  * Представляет операцию сложения двух выражений.
  */
-public class Add extends Expression {
-    private Expression left;
-    private Expression right;
+public class Add implements Expression {
+    private final Expression left;
+    private final Expression right;
 
     /**
      * Создаёт выражение сложения.
@@ -19,17 +21,12 @@ public class Add extends Expression {
     }
 
     @Override
-    public String print() {
-        return "(" + left.print() + "+" + right.print() + ")";
-    }
-
-    @Override
     public Expression derivative(String var) {
         return new Add(left.derivative(var), right.derivative((var)));
     }
 
     @Override
-    public double eval(String assignments) {
+    public double eval(Map<String, Double> assignments) {
         return left.eval(assignments) + right.eval(assignments);
     }
 
@@ -58,5 +55,10 @@ public class Add extends Expression {
 
         return (left.equals(other.left) && right.equals(other.right))
                 || (left.equals(other.right) && right.equals(other.left));
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "+" + right + ")";
     }
 }

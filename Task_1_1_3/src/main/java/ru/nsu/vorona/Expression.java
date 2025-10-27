@@ -1,17 +1,13 @@
 package ru.nsu.vorona;
 
-/**
- * Абстрактный класс, представляющий математическое выражение.
- * Поддерживает операции печати, дифференцирования, вычисления и упрощения.
- */
-public abstract class Expression {
+import java.util.Map;
 
-    /**
-     * Возвращает строковое представление выражения.
-     *
-     * @return строка с выражением в скобочной нотации
-     */
-    public abstract String print();
+/**
+ * Интерфейс, представляющий математическое выражение.
+ * Поддерживает операции печати (toString), дифференцирования, вычисления и упрощения.
+ * выбрасывает исключение {@link ArithmeticException} в случае ошибки
+ */
+public interface Expression {
 
     /**
      * Вычисляет производную выражения по заданной переменной.
@@ -19,21 +15,21 @@ public abstract class Expression {
      * @param var имя переменной для дифференцирования
      * @return новое выражение, представляющее производную
      */
-    public abstract Expression derivative(String var);
+    Expression derivative(String var);
 
     /**
      * Вычисляет значение выражения при заданных значениях переменных.
      *
-     * @param assignments строка с присваиваниями вида "x = 10; y = 5"
+     * @param assignments значения переменных
      * @return числовое значение выражения
      */
-    public abstract double eval(String assignments);
+    double eval(Map<String, Double> assignments);
 
     /**
      * Упрощает выражение по заданным правилам.
      *
      * @return новое упрощённое выражение
      */
-    public abstract Expression simplify();
+    Expression simplify();
 }
 

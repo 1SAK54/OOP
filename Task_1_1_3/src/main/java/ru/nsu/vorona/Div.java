@@ -4,8 +4,8 @@ package ru.nsu.vorona;
  * Представляет операцию деления двух выражений.
  */
 public class Div extends Expression {
-    private Expression left;
-    private Expression right;
+    private final Expression left;
+    private final Expression right;
 
     /**
      * Создаёт выражение деления.
@@ -17,12 +17,6 @@ public class Div extends Expression {
         this.left = left;
         this.right = right;
     }
-
-    @Override
-    public String print() {
-        return "(" + left.print() + "/" + right.print() + ")";
-    }
-
     @Override
     public Expression derivative(String var) {
         return new Div (new Sub(
@@ -61,5 +55,10 @@ public class Div extends Expression {
         }
         Div other = (Div) obj;
         return left.equals(other.left) && right.equals(other.right);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "/" + right + ")";
     }
 }
