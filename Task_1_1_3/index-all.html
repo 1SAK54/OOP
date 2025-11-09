@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/vorona/Add.html" class="type-name-link" title="class in ru.nsu.vorona">Add</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
@@ -63,8 +63,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Утилитный класс для парсинга строк с присваиваниями переменных.</div>
 </dd>
-<dt><a href="ru/nsu/vorona/AssignmentParser.html#%3Cinit%3E()" class="member-name-link">AssignmentParser()</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/AssignmentParser.html" title="class in ru.nsu.vorona">AssignmentParser</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:D">D</h2>
 <dl class="index">
@@ -72,7 +70,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/vorona/Div.html#derivative(java.lang.String)" class="member-name-link">derivative(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Expression.html#derivative(java.lang.String)" class="member-name-link">derivative(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="class in ru.nsu.vorona">Expression</a></dt>
+<dt><a href="ru/nsu/vorona/Expression.html#derivative(java.lang.String)" class="member-name-link">derivative(String)</a> - Method in interface ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="interface in ru.nsu.vorona">Expression</a></dt>
 <dd>
 <div class="block">Вычисляет производную выражения по заданной переменной.</div>
 </dd>
@@ -107,28 +105,42 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/vorona/Variable.html#equals(java.lang.Object)" class="member-name-link">equals(Object)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Add.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Add.html" title="class in ru.nsu.vorona">Add</a></dt>
+<dt><a href="ru/nsu/vorona/Expression.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in interface ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="interface in ru.nsu.vorona">Expression</a></dt>
+<dd>
+<div class="block">Вычисляет значение выражения при заданных значениях переменных из строки.</div>
+</dd>
+<dt><a href="ru/nsu/vorona/Add.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Add.html" title="class in ru.nsu.vorona">Add</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Div.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
+<dt><a href="ru/nsu/vorona/Div.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Expression.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="class in ru.nsu.vorona">Expression</a></dt>
+<dt><a href="ru/nsu/vorona/Expression.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in interface ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="interface in ru.nsu.vorona">Expression</a></dt>
 <dd>
 <div class="block">Вычисляет значение выражения при заданных значениях переменных.</div>
 </dd>
-<dt><a href="ru/nsu/vorona/Mul.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Mul.html" title="class in ru.nsu.vorona">Mul</a></dt>
+<dt><a href="ru/nsu/vorona/Mul.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Mul.html" title="class in ru.nsu.vorona">Mul</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Number.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
+<dt><a href="ru/nsu/vorona/Number.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Sub.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Sub.html" title="class in ru.nsu.vorona">Sub</a></dt>
+<dt><a href="ru/nsu/vorona/Sub.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Sub.html" title="class in ru.nsu.vorona">Sub</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Variable.html#eval(java.lang.String)" class="member-name-link">eval(String)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
+<dt><a href="ru/nsu/vorona/Variable.html#eval(java.util.Map)" class="member-name-link">eval(Map&lt;String, Double&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Expression.html" class="type-name-link" title="class in ru.nsu.vorona">Expression</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
+<dt><a href="ru/nsu/vorona/Evaluator.html#eval(ru.nsu.vorona.Expression,java.lang.String)" class="member-name-link">eval(Expression, String)</a> - Static method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Evaluator.html" title="class in ru.nsu.vorona">Evaluator</a></dt>
 <dd>
-<div class="block">Абстрактный класс, представляющий математическое выражение.</div>
+<div class="block">Вычисляет значение выражения при заданных значениях переменных.</div>
 </dd>
-<dt><a href="ru/nsu/vorona/Expression.html#%3Cinit%3E()" class="member-name-link">Expression()</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="class in ru.nsu.vorona">Expression</a></dt>
-<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Evaluator.html#eval(ru.nsu.vorona.Expression,java.util.Map)" class="member-name-link">eval(Expression, Map&lt;String, Double&gt;)</a> - Static method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Evaluator.html" title="class in ru.nsu.vorona">Evaluator</a></dt>
+<dd>
+<div class="block">Вычисляет значение выражения при заданных значениях переменных.</div>
+</dd>
+<dt><a href="ru/nsu/vorona/Evaluator.html" class="type-name-link" title="class in ru.nsu.vorona">Evaluator</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
+<dd>
+<div class="block">Утилитный класс для вычисления значений выражений.</div>
+</dd>
+<dt><a href="ru/nsu/vorona/Expression.html" class="type-name-link" title="interface in ru.nsu.vorona">Expression</a> - Interface in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
+<dd>
+<div class="block">Интерфейс, представляющий математическое выражение.</div>
+</dd>
 <dt><a href="ru/nsu/vorona/ExpressionParser.html" class="type-name-link" title="class in ru.nsu.vorona">ExpressionParser</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
 <dd>
 <div class="block">Парсер для преобразования строкового представления выражения в дерево объектов Expression.</div>
@@ -140,8 +152,23 @@ loadScripts(document, 'script');</script>
 <dl class="index">
 <dt><a href="ru/nsu/vorona/Number.html#getValue()" class="member-name-link">getValue()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
 <dd>
-<div class="block">Возвращает значение числа.</div>
+<div class="block">Возвращает значение числовой константы.</div>
 </dd>
+</dl>
+<h2 class="title" id="I:H">H</h2>
+<dl class="index">
+<dt><a href="ru/nsu/vorona/Add.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Add.html" title="class in ru.nsu.vorona">Add</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Div.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Mul.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Mul.html" title="class in ru.nsu.vorona">Mul</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Number.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Sub.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Sub.html" title="class in ru.nsu.vorona">Sub</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Variable.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:M">M</h2>
 <dl class="index">
@@ -151,7 +178,7 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/vorona/Main.html" class="type-name-link" title="class in ru.nsu.vorona">Main</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
 <dd>
-<div class="block">Главный класс программы для демонстрации работы с математическими выражениями, как в примере.</div>
+<div class="block">Главный класс программы для демонстрации работы с математическими выражениями.</div>
 </dd>
 <dt><a href="ru/nsu/vorona/Main.html#%3Cinit%3E()" class="member-name-link">Main()</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/Main.html" title="class in ru.nsu.vorona">Main</a></dt>
 <dd>&nbsp;</dd>
@@ -172,35 +199,19 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/vorona/Number.html#%3Cinit%3E(double)" class="member-name-link">Number(double)</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
 <dd>
-<div class="block">Создаёт числовую константу.</div>
+<div class="block">Создаёт числовую константу с заданным значением.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:P">P</h2>
 <dl class="index">
 <dt><a href="ru/nsu/vorona/AssignmentParser.html#parse(java.lang.String)" class="member-name-link">parse(String)</a> - Static method in class ru.nsu.vorona.<a href="ru/nsu/vorona/AssignmentParser.html" title="class in ru.nsu.vorona">AssignmentParser</a></dt>
 <dd>
-<div class="block">Парсит строку с присваиваниями переменных и их значений.gradle jacocoTestCoverageVerification</div>
+<div class="block">Парсит строку с присваиваниями переменных.</div>
 </dd>
 <dt><a href="ru/nsu/vorona/ExpressionParser.html#parse(java.lang.String)" class="member-name-link">parse(String)</a> - Static method in class ru.nsu.vorona.<a href="ru/nsu/vorona/ExpressionParser.html" title="class in ru.nsu.vorona">ExpressionParser</a></dt>
 <dd>
 <div class="block">Парсит строку и создаёт соответствующее выражение.</div>
 </dd>
-<dt><a href="ru/nsu/vorona/Add.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Add.html" title="class in ru.nsu.vorona">Add</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Div.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Expression.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="class in ru.nsu.vorona">Expression</a></dt>
-<dd>
-<div class="block">Возвращает строковое представление выражения.</div>
-</dd>
-<dt><a href="ru/nsu/vorona/Mul.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Mul.html" title="class in ru.nsu.vorona">Mul</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Number.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Sub.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Sub.html" title="class in ru.nsu.vorona">Sub</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Variable.html#print()" class="member-name-link">print()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
-<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
@@ -213,7 +224,7 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="ru/nsu/vorona/Div.html#simplify()" class="member-name-link">simplify()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="ru/nsu/vorona/Expression.html#simplify()" class="member-name-link">simplify()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="class in ru.nsu.vorona">Expression</a></dt>
+<dt><a href="ru/nsu/vorona/Expression.html#simplify()" class="member-name-link">simplify()</a> - Method in interface ru.nsu.vorona.<a href="ru/nsu/vorona/Expression.html" title="interface in ru.nsu.vorona">Expression</a></dt>
 <dd>
 <div class="block">Упрощает выражение по заданным правилам.</div>
 </dd>
@@ -234,6 +245,21 @@ loadScripts(document, 'script');</script>
 <div class="block">Создаёт выражение вычитания.</div>
 </dd>
 </dl>
+<h2 class="title" id="I:T">T</h2>
+<dl class="index">
+<dt><a href="ru/nsu/vorona/Add.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Add.html" title="class in ru.nsu.vorona">Add</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Div.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Div.html" title="class in ru.nsu.vorona">Div</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Mul.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Mul.html" title="class in ru.nsu.vorona">Mul</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Number.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Number.html" title="class in ru.nsu.vorona">Number</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Sub.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Sub.html" title="class in ru.nsu.vorona">Sub</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="ru/nsu/vorona/Variable.html#toString()" class="member-name-link">toString()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/Variable.html" title="class in ru.nsu.vorona">Variable</a></dt>
+<dd>&nbsp;</dd>
+</dl>
 <h2 class="title" id="I:V">V</h2>
 <dl class="index">
 <dt><a href="ru/nsu/vorona/Variable.html" class="type-name-link" title="class in ru.nsu.vorona">Variable</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
@@ -245,7 +271,7 @@ loadScripts(document, 'script');</script>
 <div class="block">Создаёт переменную с заданным именем.</div>
 </dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:D">D</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:M">M</a>&nbsp;<a href="#I:N">N</a>&nbsp;<a href="#I:P">P</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>
