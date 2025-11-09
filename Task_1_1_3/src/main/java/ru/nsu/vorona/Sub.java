@@ -1,11 +1,13 @@
 package ru.nsu.vorona;
 
+import java.util.Map;
+
 /**
  * Представляет операцию вычитания двух выражений.
  */
-public class Sub extends Expression {
-    private Expression left;
-    private Expression right;
+public class Sub implements Expression {
+    private final Expression left;
+    private final Expression right;
 
     /**
      * Создаёт выражение вычитания.
@@ -19,17 +21,12 @@ public class Sub extends Expression {
     }
 
     @Override
-    public String print() {
-        return "(" + left.print() + "-" + right.print() + ")";
-    }
-
-    @Override
     public Expression derivative(String var) {
-        return new Sub(left.derivative(var), right.derivative((var)));
+        return new Sub(left.derivative(var), right.derivative(var));
     }
 
     @Override
-    public double eval(String assignments) {
+    public double eval(Map<String, Double> assignments) {
         return left.eval(assignments) - right.eval(assignments);
     }
 
@@ -39,7 +36,8 @@ public class Sub extends Expression {
         Expression rightSimple = right.simplify();
 
         if (leftSimple instanceof Number && rightSimple instanceof Number) {
-            double result = ((Number) leftSimple).getValue() - ((Number) rightSimple).getValue();
+            double result = ((Number) leftSimple).getValue()
+                    - ((Number) rightSimple).getValue();
             return new Number(result);
         }
 
@@ -60,5 +58,15 @@ public class Sub extends Expression {
         }
         Sub other = (Sub) obj;
         return left.equals(other.left) && right.equals(other.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * left.hashCode() + right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "-" + right + ")";
     }
 }

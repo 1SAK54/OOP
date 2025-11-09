@@ -1,26 +1,23 @@
 package ru.nsu.vorona;
 
+import java.util.Map;
+
 /**
  * Представляет операцию умножения двух выражений.
  */
-public class Mul extends Expression {
-    private Expression left;
-    private Expression right;
+public class Mul implements Expression {
+    private final Expression left;
+    private final Expression right;
 
     /**
      * Создаёт выражение умножения.
      *
-     * @param left левое выражение
-     * @param right правое выражение
+     * @param left левый множитель
+     * @param right правый множитель
      */
     public Mul(Expression left, Expression right) {
         this.left = left;
         this.right = right;
-    }
-
-    @Override
-    public String print() {
-        return "(" + left.print() + "*" + right.print() + ")";
     }
 
     @Override
@@ -32,7 +29,7 @@ public class Mul extends Expression {
     }
 
     @Override
-    public double eval(String assignments) {
+    public double eval(Map<String, Double> assignments) {
         return left.eval(assignments) * right.eval(assignments);
     }
 
@@ -42,13 +39,15 @@ public class Mul extends Expression {
         Expression rightSimple = right.simplify();
 
         if (leftSimple instanceof Number && rightSimple instanceof Number) {
-            double result = ((Number) leftSimple).getValue() * ((Number) rightSimple).getValue();
-            return new Number(result);
+            double result = ((Number) leftSimple).getValue()
+                    * ((Number) rightSimple).getValue();
+            return new Number (result);
         }
 
         if (leftSimple instanceof Number && ((Number) leftSimple).getValue() == 0) {
             return new Number(0);
         }
+
         if (rightSimple instanceof Number && ((Number) rightSimple).getValue() == 0) {
             return new Number(0);
         }
@@ -61,7 +60,7 @@ public class Mul extends Expression {
             return leftSimple;
         }
 
-        return new Mul(leftSimple, rightSimple);
+        return new Mul (leftSimple, rightSimple);
     }
 
     @Override
@@ -73,8 +72,17 @@ public class Mul extends Expression {
             return false;
         }
         Mul other = (Mul) obj;
-
         return (left.equals(other.left) && right.equals(other.right))
                 || (left.equals(other.right) && right.equals(other.left));
+    }
+
+    @Override
+    public int hashCode() {
+        return left.hashCode() + right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "*" + right + ")";
     }
 }

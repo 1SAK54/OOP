@@ -4,9 +4,10 @@ import java.util.Map;
 
 /**
  * Представляет переменную в математическом выражении.
+ * Поддерживает многобуквенные имена переменных.
  */
-public class Variable extends Expression {
-    private String name;
+public class Variable implements Expression {
+    private final String name;
 
     /**
      * Создаёт переменную с заданным именем.
@@ -15,11 +16,6 @@ public class Variable extends Expression {
      */
     public Variable(String name) {
         this.name = name;
-    }
-
-    @Override
-    public String print() {
-        return name;
     }
 
     @Override
@@ -32,9 +28,8 @@ public class Variable extends Expression {
     }
 
     @Override
-    public double eval(String assignments) {
-        Map<String, Double> values = AssignmentParser.parse(assignments);
-        return values.get(name);
+    public double eval(Map<String, Double> assignments) {
+        return assignments.get(name);
     }
 
     @Override
@@ -52,5 +47,15 @@ public class Variable extends Expression {
         }
         Variable other = (Variable) obj;
         return name.equals(other.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

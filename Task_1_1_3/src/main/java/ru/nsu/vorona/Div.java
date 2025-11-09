@@ -1,11 +1,13 @@
 package ru.nsu.vorona;
 
+import java.util.Map;
+
 /**
  * Представляет операцию деления двух выражений.
  */
-public class Div extends Expression {
-    private Expression left;
-    private Expression right;
+public class Div implements Expression {
+    private final Expression left;
+    private final Expression right;
 
     /**
      * Создаёт выражение деления.
@@ -19,22 +21,18 @@ public class Div extends Expression {
     }
 
     @Override
-    public String print() {
-        return "(" + left.print() + "/" + right.print() + ")";
-    }
-
-    @Override
     public Expression derivative(String var) {
-        return new Div (new Sub(
-                    new Mul(left.derivative(var), right),
-                    new Mul(left, right.derivative(var))
+        return new Div(
+                new Sub(
+                        new Mul(left.derivative(var), right),
+                        new Mul(left, right.derivative(var))
                 ),
                 new Mul(right, right)
         );
     }
 
     @Override
-    public double eval(String assignments) {
+    public double eval(Map<String, Double> assignments) {
         return left.eval(assignments) / right.eval(assignments);
     }
 
@@ -44,7 +42,8 @@ public class Div extends Expression {
         Expression rightSimple = right.simplify();
 
         if (leftSimple instanceof Number && rightSimple instanceof Number) {
-            double result = ((Number) leftSimple).getValue() / ((Number) rightSimple).getValue();
+            double result = ((Number) leftSimple).getValue()
+                    / ((Number) rightSimple).getValue();
             return new Number(result);
         }
 
@@ -61,5 +60,15 @@ public class Div extends Expression {
         }
         Div other = (Div) obj;
         return left.equals(other.left) && right.equals(other.right);
+    }
+
+    @Override
+    public int hashCode() {
+        return 31 * left.hashCode() + right.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "(" + left + "/" + right + ")";
     }
 }

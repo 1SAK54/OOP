@@ -16,7 +16,7 @@ public class ExpressionParserTest {
     @Test
     void testParseSingleNumber() {
         Expression e = ExpressionParser.parse("5");
-        assertEquals("5.0", e.print());
+        assertEquals("5.0", e.toString());
     }
 
     /**
@@ -25,7 +25,7 @@ public class ExpressionParserTest {
     @Test
     void testParseSingleVariable() {
         Expression e = ExpressionParser.parse("x");
-        assertEquals("x", e.print());
+        assertEquals("x", e.toString());
     }
 
     /**
@@ -34,7 +34,7 @@ public class ExpressionParserTest {
     @Test
     void testParseAdd() {
         Expression e = ExpressionParser.parse("(2+3)");
-        assertEquals("(2.0+3.0)", e.print());
+        assertEquals("(2.0+3.0)", e.toString());
     }
 
     /**
@@ -43,7 +43,7 @@ public class ExpressionParserTest {
     @Test
     void testParseComplexExpression() {
         Expression e = ExpressionParser.parse("(3+(2*x))");
-        assertEquals("(3.0+(2.0*x))", e.print());
+        assertEquals("(3.0+(2.0*x))", e.toString());
     }
 
     /**
@@ -52,7 +52,7 @@ public class ExpressionParserTest {
     @Test
     void testParseWithoutBrackets() {
         Expression e = ExpressionParser.parse("3+2*x");
-        assertEquals("(3.0+(2.0*x))", e.print());
+        assertEquals("(3.0+(2.0*x))", e.toString());
     }
 
     /**
@@ -61,7 +61,7 @@ public class ExpressionParserTest {
     @Test
     void testParseSub() {
         Expression e = ExpressionParser.parse("(10-3)");
-        assertEquals("(10.0-3.0)", e.print());
+        assertEquals("(10.0-3.0)", e.toString());
     }
 
     /**
@@ -70,7 +70,7 @@ public class ExpressionParserTest {
     @Test
     void testParseMul() {
         Expression e = ExpressionParser.parse("(4*5)");
-        assertEquals("(4.0*5.0)", e.print());
+        assertEquals("(4.0*5.0)", e.toString());
     }
 
     /**
@@ -79,7 +79,7 @@ public class ExpressionParserTest {
     @Test
     void testParseDiv() {
         Expression e = ExpressionParser.parse("(10/2)");
-        assertEquals("(10.0/2.0)", e.print());
+        assertEquals("(10.0/2.0)", e.toString());
     }
 
     /**
@@ -88,7 +88,7 @@ public class ExpressionParserTest {
     @Test
     void testParseMultiLetterVariable() {
         Expression e = ExpressionParser.parse("abc");
-        assertEquals("abc", e.print());
+        assertEquals("abc", e.toString());
     }
 
     /**
@@ -97,7 +97,7 @@ public class ExpressionParserTest {
     @Test
     void testParseDecimalNumber() {
         Expression e = ExpressionParser.parse("3.14");
-        assertEquals("3.14", e.print());
+        assertEquals("3.14", e.toString());
     }
 
     /**
@@ -106,7 +106,7 @@ public class ExpressionParserTest {
     @Test
     void testParseNestedBrackets() {
         Expression e = ExpressionParser.parse("((2+3)*x)");
-        assertEquals("((2.0+3.0)*x)", e.print());
+        assertEquals("((2.0+3.0)*x)", e.toString());
     }
 
     /**
@@ -115,7 +115,7 @@ public class ExpressionParserTest {
     @Test
     void testParseMultipleOperationsWithoutBrackets() {
         Expression e = ExpressionParser.parse("2*x+3*y");
-        assertEquals("((2.0*x)+(3.0*y))", e.print());
+        assertEquals("((2.0*x)+(3.0*y))", e.toString());
     }
 
     /**
@@ -134,6 +134,6 @@ public class ExpressionParserTest {
     void testParseAndDerivative() {
         Expression e = ExpressionParser.parse("(2*x)");
         Expression de = e.derivative("x");
-        assertEquals("((0.0*x)+(2.0*1.0))", de.print());
+        assertEquals("((0.0*x)+(2.0*1.0))", de.toString());
     }
 }

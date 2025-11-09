@@ -1,22 +1,24 @@
 package ru.nsu.vorona;
 
+import java.util.Map;
+
 /**
  * Представляет числовую константу в математическом выражении.
  */
-public class Number extends Expression {
-    private double value;
+public class Number implements Expression {
+    private final double value;
 
     /**
-     * Создаёт числовую константу.
+     * Создаёт числовую константу с заданным значением.
      *
-     * @param value числовое значение константы
+     * @param value числовое значение
      */
     public Number(double value) {
         this.value = value;
     }
 
     /**
-     * Возвращает значение числа.
+     * Возвращает значение числовой константы.
      *
      * @return значение константы
      */
@@ -25,17 +27,12 @@ public class Number extends Expression {
     }
 
     @Override
-    public String print() {
-        return String.valueOf(value);
-    }
-
-    @Override
     public Expression derivative(String var) {
         return new Number(0);
     }
 
     @Override
-    public double eval(String assignment) {
+    public double eval(Map<String, Double> assignments) {
         return value;
     }
 
@@ -54,5 +51,15 @@ public class Number extends Expression {
         }
         Number other = (Number) obj;
         return Double.compare(value, other.value) == 0;
+    }
+
+    @Override
+    public int hashCode() {
+        return Double.hashCode(value);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(value);
     }
 }

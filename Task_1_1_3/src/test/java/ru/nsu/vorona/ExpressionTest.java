@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Тесты для проверки основных операций с математическими выражениями.
- * Проверяет методы print(), eval() и derivative() для всех типов выражений.
+ * Проверяет методы toString(), eval() и derivative() для всех типов выражений.
  */
 public class ExpressionTest {
 
@@ -15,16 +15,16 @@ public class ExpressionTest {
      * Проверяет печать числовой константы.
      */
     @Test
-    void testNumberPrint() {
+    void testNumbertoString() {
         Expression e = new Number(7);
-        assertEquals("7.0", e.print());
+        assertEquals("7.0", e.toString());
     }
 
     /**
      * Проверяет вычисление значения переменной с присваиванием.
      */
     @Test
-    void testVariablePrint() {
+    void testVariabletoString() {
         Expression e = new Variable("x");
         assertEquals(10.0, e.eval("x = 10"));
     }
@@ -46,7 +46,7 @@ public class ExpressionTest {
     void testMulDerivative() {
         Expression e = new Mul(new Number(2), new Variable("x"));
         Expression de = e.derivative("x");
-        assertEquals("((0.0*x)+(2.0*1.0))", de.print());
+        assertEquals("((0.0*x)+(2.0*1.0))", de.toString());
     }
 
     /**
@@ -56,7 +56,7 @@ public class ExpressionTest {
     void testNumberDerivative() {
         Expression e = new Number(5);
         Expression de = e.derivative("x");
-        assertEquals("0.0", de.print());
+        assertEquals("0.0", de.toString());
     }
 
     /**
@@ -66,7 +66,7 @@ public class ExpressionTest {
     void testVariableDerivativeSame() {
         Expression e = new Variable("x");
         Expression de = e.derivative("x");
-        assertEquals("1.0", de.print());
+        assertEquals("1.0", de.toString());
     }
 
     /**
@@ -76,43 +76,43 @@ public class ExpressionTest {
     void testVariableDerivativeDifferent() {
         Expression e = new Variable("y");
         Expression de = e.derivative("x");
-        assertEquals("0.0", de.print());
+        assertEquals("0.0", de.toString());
     }
 
     /**
      * Проверяет печать выражения сложения.
      */
     @Test
-    void testAddPrint() {
+    void testAddtoString() {
         Expression e = new Add(new Number(2), new Number(3));
-        assertEquals("(2.0+3.0)", e.print());
+        assertEquals("(2.0+3.0)", e.toString());
     }
 
     /**
      * Проверяет печать выражения вычитания.
      */
     @Test
-    void testSubPrint() {
+    void testSubtoString() {
         Expression e = new Sub(new Number(10), new Number(3));
-        assertEquals("(10.0-3.0)", e.print());
+        assertEquals("(10.0-3.0)", e.toString());
     }
 
     /**
      * Проверяет печать выражения умножения.
      */
     @Test
-    void testMulPrint() {
+    void testMultoString() {
         Expression e = new Mul(new Number(4), new Number(5));
-        assertEquals("(4.0*5.0)", e.print());
+        assertEquals("(4.0*5.0)", e.toString());
     }
 
     /**
      * Проверяет печать выражения деления.
      */
     @Test
-    void testDivPrint() {
+    void testDivtoString() {
         Expression e = new Div(new Number(10), new Number(2));
-        assertEquals("(10.0/2.0)", e.print());
+        assertEquals("(10.0/2.0)", e.toString());
     }
 
     /**
@@ -149,7 +149,7 @@ public class ExpressionTest {
     void testAddDerivative() {
         Expression e = new Add(new Number(3), new Mul(new Number(2), new Variable("x")));
         Expression de = e.derivative("x");
-        assertEquals("(0.0+((0.0*x)+(2.0*1.0)))", de.print());
+        assertEquals("(0.0+((0.0*x)+(2.0*1.0)))", de.toString());
     }
 
     /**
@@ -159,7 +159,7 @@ public class ExpressionTest {
     void testSubDerivative() {
         Expression e = new Sub(new Variable("x"), new Number(5));
         Expression de = e.derivative("x");
-        assertEquals("(1.0-0.0)", de.print());
+        assertEquals("(1.0-0.0)", de.toString());
     }
 
     /**
@@ -169,7 +169,7 @@ public class ExpressionTest {
     void testDivDerivative() {
         Expression e = new Div(new Variable("x"), new Number(2));
         Expression de = e.derivative("x");
-        assertEquals("(((1.0*2.0)-(x*0.0))/(2.0*2.0))", de.print());
+        assertEquals("(((1.0*2.0)-(x*0.0))/(2.0*2.0))", de.toString());
     }
 
     /**
@@ -187,12 +187,12 @@ public class ExpressionTest {
     @Test
     void testDerivativeDoesNotModifyOriginal() {
         Expression e = new Mul(new Number(2), new Variable("x"));
-        String original = e.print();
+        String original = e.toString();
 
         Expression de = e.derivative("x");
 
-        assertEquals(original, e.print());
-        assertNotEquals(original, de.print());
+        assertEquals(original, e.toString());
+        assertNotEquals(original, de.toString());
     }
 
     /**

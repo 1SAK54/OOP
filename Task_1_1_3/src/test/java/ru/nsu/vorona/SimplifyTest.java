@@ -18,7 +18,7 @@ public class SimplifyTest {
     void testSimplifyConstantAdd() {
         Expression e = new Add(new Number(2), new Number(3));
         Expression simplified = e.simplify();
-        assertEquals("5.0", simplified.print());
+        assertEquals("5.0", simplified.toString());
     }
 
     /**
@@ -28,7 +28,7 @@ public class SimplifyTest {
     void testSimplifyConstantSub() {
         Expression e = new Sub(new Number(10), new Number(3));
         Expression simplified = e.simplify();
-        assertEquals("7.0", simplified.print());
+        assertEquals("7.0", simplified.toString());
     }
 
     /**
@@ -38,7 +38,7 @@ public class SimplifyTest {
     void testSimplifyConstantMul() {
         Expression e = new Mul(new Number(4), new Number(5));
         Expression simplified = e.simplify();
-        assertEquals("20.0", simplified.print());
+        assertEquals("20.0", simplified.toString());
     }
 
     /**
@@ -48,7 +48,7 @@ public class SimplifyTest {
     void testSimplifyConstantDiv() {
         Expression e = new Div(new Number(10), new Number(2));
         Expression simplified = e.simplify();
-        assertEquals("5.0", simplified.print());
+        assertEquals("5.0", simplified.toString());
     }
 
     /**
@@ -60,7 +60,7 @@ public class SimplifyTest {
         Expression b = new Add(new Variable("x"), new Number(10));
         Expression c = new Sub(a, b);
         Expression simplified = c.simplify();
-        assertEquals("0.0", simplified.print());
+        assertEquals("0.0", simplified.toString());
     }
 
     /**
@@ -70,7 +70,7 @@ public class SimplifyTest {
     void testSimplifyMulByZeroLeft() {
         Expression e = new Mul(new Number(0), new Variable("x"));
         Expression simplified = e.simplify();
-        assertEquals("0.0", simplified.print());
+        assertEquals("0.0", simplified.toString());
     }
 
     /**
@@ -80,7 +80,7 @@ public class SimplifyTest {
     void testSimplifyMulByZeroRight() {
         Expression e = new Mul(new Variable("x"), new Number(0));
         Expression simplified = e.simplify();
-        assertEquals("0.0", simplified.print());
+        assertEquals("0.0", simplified.toString());
     }
 
     /**
@@ -90,7 +90,7 @@ public class SimplifyTest {
     void testSimplifyMulByOneLeft() {
         Expression e = new Mul(new Number(1), new Variable("x"));
         Expression simplified = e.simplify();
-        assertEquals("x", simplified.print());
+        assertEquals("x", simplified.toString());
     }
 
     /**
@@ -100,7 +100,7 @@ public class SimplifyTest {
     void testSimplifyMulByOneRight() {
         Expression e = new Mul(new Variable("x"), new Number(1));
         Expression simplified = e.simplify();
-        assertEquals("x", simplified.print());
+        assertEquals("x", simplified.toString());
     }
 
     /**
@@ -111,7 +111,7 @@ public class SimplifyTest {
         Variable x = new Variable("x");
         Expression e = new Sub(x, x);
         Expression simplified = e.simplify();
-        assertEquals("0.0", simplified.print());
+        assertEquals("0.0", simplified.toString());
     }
 
     /**
@@ -120,12 +120,12 @@ public class SimplifyTest {
     @Test
     void testSimplifyDoesNotModifyOriginal() {
         Expression e = new Mul(new Variable("x"), new Number(0));
-        String original = e.print();
+        String original = e.toString();
 
         Expression simplified = e.simplify();
 
-        assertEquals(original, e.print());
-        assertEquals("0.0", simplified.print());
+        assertEquals(original, e.toString());
+        assertEquals("0.0", simplified.toString());
     }
 
     /**
@@ -135,7 +135,7 @@ public class SimplifyTest {
     void testSimplifyNestedExpression() {
         Expression e = new Mul(new Add(new Number(2), new Number(3)), new Variable("x"));
         Expression simplified = e.simplify();
-        assertEquals("(5.0*x)", simplified.print());
+        assertEquals("(5.0*x)", simplified.toString());
     }
 
     /**
@@ -146,7 +146,7 @@ public class SimplifyTest {
         Expression e = new Mul(new Number(2), new Variable("x"));
         Expression derivative = e.derivative("x");
         Expression simplified = derivative.simplify();
-        assertEquals("2.0", simplified.print());
+        assertEquals("2.0", simplified.toString());
     }
 
     /**
@@ -157,7 +157,7 @@ public class SimplifyTest {
         Expression e = new Add(new Number(3), new Mul(new Number(2), new Variable("x")));
         Expression derivative = e.derivative("x");
         Expression simplified = derivative.simplify();
-        assertEquals("2.0", simplified.print());
+        assertEquals("2.0", simplified.toString());
     }
 
     /**
@@ -170,7 +170,7 @@ public class SimplifyTest {
                 new Mul(new Number(5), new Number(1))
         );
         Expression simplified = e.simplify();
-        assertEquals("5.0", simplified.print());
+        assertEquals("5.0", simplified.toString());
     }
 
     /**
@@ -180,7 +180,7 @@ public class SimplifyTest {
     void testSimplifyVariable() {
         Expression e = new Variable("x");
         Expression simplified = e.simplify();
-        assertEquals("x", simplified.print());
+        assertEquals("x", simplified.toString());
     }
 
     /**
@@ -190,6 +190,6 @@ public class SimplifyTest {
     void testSimplifyNumber() {
         Expression e = new Number(42);
         Expression simplified = e.simplify();
-        assertEquals("42.0", simplified.print());
+        assertEquals("42.0", simplified.toString());
     }
 }
