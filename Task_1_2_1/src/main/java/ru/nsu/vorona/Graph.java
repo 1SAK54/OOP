@@ -29,7 +29,7 @@ public interface Graph<V> {
      * Добавляет ориентированное ребро из from в to.
      *
      * @param from начальная вершина
-     * @param to конечная вершина
+     * @param to   конечная вершина
      * @return true, если ребро было добавлено; false, если уже существует
      */
     boolean addEdge(V from, V to);
@@ -38,7 +38,7 @@ public interface Graph<V> {
      * Удаляет ориентированное ребро из from в to.
      *
      * @param from начальная вершина
-     * @param to конечная вершина
+     * @param to   конечная вершина
      * @return true, если ребро было удалено; false, если не существует
      */
     boolean removeEdge(V from, V to);
@@ -62,7 +62,7 @@ public interface Graph<V> {
      * Проверяет существование ребра между вершинами.
      *
      * @param from начальная вершина
-     * @param to конечная вершина
+     * @param to   конечная вершина
      * @return true, если ребро существует
      */
     boolean hasEdge(V from, V to);

@@ -143,7 +143,6 @@ public class AdjacencyListGraph<V> implements Graph<V> {
     }
 
 
-
     @Override
     public int hashCode() {
         return Objects.hash(adjacencyList);

@@ -1,13 +1,15 @@
 package ru.nsu.vorona;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Тесты для чтения графа из файла.
@@ -18,13 +20,13 @@ class GraphReaderTest {
     void testReadSimpleGraph(@TempDir Path tempDir) throws IOException {
         Path file = tempDir.resolve("graph.txt");
         Files.writeString(file, """
-            4
-            A B C D
-            A B
-            A C
-            B D
-            C D
-            """);
+                4
+                A B C D
+                A B
+                A C
+                B D
+                C D
+                """);
 
         Graph<String> graph = GraphReader.readGraph(file.toString());
 
@@ -40,9 +42,9 @@ class GraphReaderTest {
     void testReadEmptyGraph(@TempDir Path tempDir) throws IOException {
         Path file = tempDir.resolve("empty.txt");
         Files.writeString(file, """
-            0
-            
-            """);
+                0
+                
+                """);
 
         Graph<String> graph = GraphReader.readGraph(file.toString());
 
@@ -54,9 +56,9 @@ class GraphReaderTest {
     void testReadSingleVertex(@TempDir Path tempDir) throws IOException {
         Path file = tempDir.resolve("single.txt");
         Files.writeString(file, """
-            1
-            A
-            """);
+                1
+                A
+                """);
 
         Graph<String> graph = GraphReader.readGraph(file.toString());
 
@@ -69,11 +71,11 @@ class GraphReaderTest {
     void testReadGraphWithSelfLoop(@TempDir Path tempDir) throws IOException {
         Path file = tempDir.resolve("selfloop.txt");
         Files.writeString(file, """
-            2
-            A B
-            A A
-            A B
-            """);
+                2
+                A B
+                A A
+                A B
+                """);
 
         Graph<String> graph = GraphReader.readGraph(file.toString());
 
@@ -92,14 +94,14 @@ class GraphReaderTest {
     void testReadComplexGraph(@TempDir Path tempDir) throws IOException {
         Path file = tempDir.resolve("complex.txt");
         Files.writeString(file, """
-            5
-            A B C D E
-            A B
-            A C
-            B D
-            C D
-            D E
-            """);
+                5
+                A B C D E
+                A B
+                A C
+                B D
+                C D
+                D E
+                """);
 
         Graph<String> graph = GraphReader.readGraph(file.toString());
 

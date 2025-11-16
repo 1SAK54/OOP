@@ -213,7 +213,6 @@ public class AdjacencyMatrixGraph<V> implements Graph<V> {
     }
 
 
-
     @Override
     public int hashCode() {
         return Objects.hash(vertices, edgeCount());

@@ -1,8 +1,9 @@
 plugins {
     id 'java'
+    id 'jacoco'
 }
 
-group = 'ru.nsu.vorona'
+group = 'ru.nsu.vorona.Task_1_1_2'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -17,4 +18,10 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
 }

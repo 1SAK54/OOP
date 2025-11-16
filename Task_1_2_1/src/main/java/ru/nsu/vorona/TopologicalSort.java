@@ -16,7 +16,7 @@ public final class TopologicalSort {
      * Выполняет топологическую сортировку графа.
      *
      * @param graph граф для сортировки
-     * @param <V> тип вершин
+     * @param <V>   тип вершин
      * @return список вершин в топологическом порядке
      * @throws IllegalStateException если граф содержит цикл
      */
