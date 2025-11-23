@@ -48,7 +48,7 @@ loadScripts(document, 'script');</script>
 <div class="header">
 <h1>Index</h1>
 </div>
-<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a>
 <h2 class="title" id="I:A">A</h2>
 <dl class="index">
 <dt><a href="ru/nsu/vorona/AdjacencyListGraph.html#addEdge(V,V)" class="member-name-link">addEdge(V, V)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/AdjacencyListGraph.html" title="class in ru.nsu.vorona">AdjacencyListGraph</a></dt>
@@ -84,6 +84,13 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/vorona/AdjacencyMatrixGraph.html#%3Cinit%3E()" class="member-name-link">AdjacencyMatrixGraph()</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/AdjacencyMatrixGraph.html" title="class in ru.nsu.vorona">AdjacencyMatrixGraph</a></dt>
 <dd>
 <div class="block">Создаёт пустой граф.</div>
+</dd>
+</dl>
+<h2 class="title" id="I:C">C</h2>
+<dl class="index">
+<dt><a href="ru/nsu/vorona/GraphReader.html#close()" class="member-name-link">close()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/GraphReader.html" title="class in ru.nsu.vorona">GraphReader</a></dt>
+<dd>
+<div class="block">Закрывает поток чтения.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:E">E</h2>
@@ -133,7 +140,15 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="ru/nsu/vorona/GraphReader.html" class="type-name-link" title="class in ru.nsu.vorona">GraphReader</a> - Class in <a href="ru/nsu/vorona/package-summary.html">ru.nsu.vorona</a></dt>
 <dd>
-<div class="block">Утилитный класс для чтения графа из файла.</div>
+<div class="block">Класс для чтения графа из потока в фиксированном формате.</div>
+</dd>
+<dt><a href="ru/nsu/vorona/GraphReader.html#%3Cinit%3E(java.io.Reader)" class="member-name-link">GraphReader(Reader)</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/GraphReader.html" title="class in ru.nsu.vorona">GraphReader</a></dt>
+<dd>
+<div class="block">Создаёт GraphReader из Reader.</div>
+</dd>
+<dt><a href="ru/nsu/vorona/GraphReader.html#%3Cinit%3E(java.lang.String)" class="member-name-link">GraphReader(String)</a> - Constructor for class ru.nsu.vorona.<a href="ru/nsu/vorona/GraphReader.html" title="class in ru.nsu.vorona">GraphReader</a></dt>
+<dd>
+<div class="block">Создаёт GraphReader из имени файла.</div>
 </dd>
 </dl>
 <h2 class="title" id="I:H">H</h2>
@@ -168,12 +183,9 @@ loadScripts(document, 'script');</script>
 </dl>
 <h2 class="title" id="I:R">R</h2>
 <dl class="index">
-<dt><a href="ru/nsu/vorona/GraphReader.html#readGraph(java.lang.String)" class="member-name-link">readGraph(String)</a> - Static method in class ru.nsu.vorona.<a href="ru/nsu/vorona/GraphReader.html" title="class in ru.nsu.vorona">GraphReader</a></dt>
+<dt><a href="ru/nsu/vorona/GraphReader.html#read(ru.nsu.vorona.Graph)" class="member-name-link">read(Graph&lt;String&gt;)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/GraphReader.html" title="class in ru.nsu.vorona">GraphReader</a></dt>
 <dd>
-<div class="block">Читает граф из файла в формате:
- Строка 1: количество вершин
- Строка 2: список вершин (через пробел)
- Остальные строки: рёбра (from to).</div>
+<div class="block">Читает граф из потока и заполняет переданный граф.</div>
 </dd>
 <dt><a href="ru/nsu/vorona/AdjacencyListGraph.html#removeEdge(V,V)" class="member-name-link">removeEdge(V, V)</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/AdjacencyListGraph.html" title="class in ru.nsu.vorona">AdjacencyListGraph</a></dt>
 <dd>&nbsp;</dd>
@@ -241,7 +253,7 @@ loadScripts(document, 'script');</script>
 <dt><a href="ru/nsu/vorona/IncidenceMatrixGraph.html#vertexCount()" class="member-name-link">vertexCount()</a> - Method in class ru.nsu.vorona.<a href="ru/nsu/vorona/IncidenceMatrixGraph.html" title="class in ru.nsu.vorona">IncidenceMatrixGraph</a></dt>
 <dd>&nbsp;</dd>
 </dl>
-<a href="#I:A">A</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
+<a href="#I:A">A</a>&nbsp;<a href="#I:C">C</a>&nbsp;<a href="#I:E">E</a>&nbsp;<a href="#I:G">G</a>&nbsp;<a href="#I:H">H</a>&nbsp;<a href="#I:I">I</a>&nbsp;<a href="#I:R">R</a>&nbsp;<a href="#I:S">S</a>&nbsp;<a href="#I:T">T</a>&nbsp;<a href="#I:V">V</a>&nbsp;<br><a href="allclasses-index.html">All&nbsp;Classes&nbsp;and&nbsp;Interfaces</a><span class="vertical-separator">|</span><a href="allpackages-index.html">All&nbsp;Packages</a></main>
 </div>
 </div>
 </body>
