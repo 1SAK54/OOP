@@ -210,4 +210,31 @@ class HashTableTest {
 
         assertEquals(1.0, hashTable.get("one"));
     }
+
+    @Test
+    void testNullKeyPutThrows() {
+        HashTable<String, Integer> table = new HashTable<>();
+        assertThrows(IllegalArgumentException.class, () -> table.put(null, 1));
+    }
+
+    @Test
+    void testNullKeyGetThrows() {
+        HashTable<String, Integer> table = new HashTable<>();
+        assertThrows(IllegalArgumentException.class, () -> table.get(null));
+    }
+
+    @Test
+    void testNullKeyRemoveThrows() {
+        HashTable<String, Integer> table = new HashTable<>();
+        assertThrows(IllegalArgumentException.class, () -> table.remove(null));
+    }
+
+    @Test
+    void testClearThenIsEmpty() {
+        HashTable<String, Integer> table = new HashTable<>();
+        table.put("a", 1);
+        table.clear();
+        assertTrue(table.isEmpty());
+        assertEquals(0, table.size());
+    }
 }
