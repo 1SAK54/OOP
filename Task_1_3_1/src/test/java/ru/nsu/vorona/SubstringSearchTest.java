@@ -5,8 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.IOException;
-import java.io.StringReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -106,4 +106,14 @@ class SubstringSearchTest {
         assertEquals(10L, result.get(0).longValue()); // Первое вхождение
     }
 
+    @Test
+    void unicodeChars() throws IOException {
+        String s = "\uD83C\uDF27\uD83C\uDF27\uD83D\uDE0A";
+        System.out.println(s);
+        String pattern = "\uD83C\uDF27";
+        System.out.println(pattern);
+        List<Long> positions = SubstringSearch.find(new StringReader(s), pattern);
+        assertEquals(List.of(0L,1L), positions);
+
+    }
 }
