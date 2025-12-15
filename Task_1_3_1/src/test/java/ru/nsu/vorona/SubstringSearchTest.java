@@ -1,12 +1,16 @@
 package ru.nsu.vorona;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.io.IOException;
+import java.io.StringReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
@@ -114,6 +118,5 @@ class SubstringSearchTest {
         System.out.println(pattern);
         List<Long> positions = SubstringSearch.find(new StringReader(s), pattern);
         assertEquals(List.of(0L,1L), positions);
-
     }
 }
