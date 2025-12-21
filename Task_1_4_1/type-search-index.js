@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.vorona","l":"ControlType"},{"p":"ru.nsu.vorona","l":"CourseRecord"},{"p":"ru.nsu.vorona","l":"Grade"},{"p":"ru.nsu.vorona","l":"GradeBook"}];updateSearchResults();
