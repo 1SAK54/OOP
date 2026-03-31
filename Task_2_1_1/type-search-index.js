@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"ru.nsu.vorona","l":"BenchmarkMain"},{"p":"ru.nsu.vorona","l":"ParallelStreamPrimeChecker"},{"p":"ru.nsu.vorona","l":"PrimeChecker"},{"p":"ru.nsu.vorona","l":"SequentialPrimeChecker"},{"p":"ru.nsu.vorona","l":"ThreadedPrimeChecker"}];updateSearchResults();
