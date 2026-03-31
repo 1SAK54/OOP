@@ -1,148 +1,463 @@
 package ru.nsu.vorona;
 
-import java.io.FileWriter;
+import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.math.BigInteger;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Random;
 
-/**
- * Task_2_1_1: Benchmark поиска непростого числа.
- * Записывает результаты в performance_results.csv и benchmark_report.txt
- */
 public class BenchmarkMain {
 
-    private static final String CSV_FILE = "performance_results.csv";
-    private static final String TXT_FILE = "benchmark_report.txt";
+    private static final int WARMUP_ITERATIONS = 2;
+    private static final int MEASURE_ITERATIONS = 5;
 
+    private static final int SMALL_SIZE = 300;
+    private static final int LARGE_SIZE = 5000;
+    private static final int LARGE_LARGE_SIZE = 1500;
+
+    private static final int SMALL_PRIME_MAX = 100_000;
+    private static final int LARGE_PRIME_BIT_LENGTH = 24;
+
+    private static final long SMALL_RANDOM_SEED = 42L;
+    private static final long LARGE_RANDOM_SEED = 4242L;
+
+    private static final double Z_90 = 1.645;
+
+    private static final int[] THREAD_COUNTS = {1, 2, 4, 8};
+    private static final int PARALLEL_STREAM_THREADS = 8;
+
+    /**
+     * Запускает бенчмарк для всех сценариев и сохраняет результаты в файлы.
+     *
+     * @param args аргументы командной строки
+     */
     public static void main(String[] args) {
-        Locale.setDefault(Locale.US);
+        try {
+            Locale.setDefault(Locale.US);
 
-        System.out.println("=== Task_2_1_1 Benchmark ===\n");
-        System.out.println("Файлы:");
-        System.out.println("  " + CSV_FILE + " ← график");
-        System.out.println("  " + TXT_FILE + " ← анализ\n");
+            Path outputDir = Paths.get("benchmark_results");
+            Files.createDirectories(outputDir);
 
-        try (PrintWriter csvWriter = new PrintWriter(new FileWriter(CSV_FILE, StandardCharsets.UTF_8));
-             PrintWriter txtWriter = new PrintWriter(new FileWriter(TXT_FILE, StandardCharsets.UTF_8))) {
+            System.setProperty(
+                    "java.util.concurrent.ForkJoinPool.common.parallelism",
+                    String.valueOf(PARALLEL_STREAM_THREADS)
+            );
 
-            csvWriter.println("Method,Threads,Time_s,Speedup");
+            System.out.println("=== PRIME CHECKER BENCHMARK ===");
+            System.out.println("Потоки для threaded: 1, 2, 4, 8");
+            System.out.println("Параллелизм для parallelStream: " + PARALLEL_STREAM_THREADS);
+            System.out.println("Прогревов: " + WARMUP_ITERATIONS);
+            System.out.println("Измерений: " + MEASURE_ITERATIONS);
+            System.out.println("Папка результатов: " + outputDir.toAbsolutePath());
+            System.out.println();
 
-            // Генерация данных
-            System.out.print("Генерация 10 000 больших простых... ");
-            int[] testData = generateLargePrimes(10_000);
-            System.out.println("Готово!\n");
+            Map<String, int[]> scenarios = new LinkedHashMap<>();
+            scenarios.put("small_small", generateSmallPrimes(SMALL_SIZE, SMALL_PRIME_MAX, SMALL_RANDOM_SEED));
+            scenarios.put("large_small", generateSmallPrimes(LARGE_SIZE, SMALL_PRIME_MAX, SMALL_RANDOM_SEED + 1));
+            scenarios.put("small_large", generateLargePrimes(SMALL_SIZE, LARGE_PRIME_BIT_LENGTH, LARGE_RANDOM_SEED));
+            scenarios.put("large_large", generateLargePrimes(LARGE_LARGE_SIZE, LARGE_PRIME_BIT_LENGTH, LARGE_RANDOM_SEED + 1));
 
-            int cores = Runtime.getRuntime().availableProcessors();
-            txtWriter.printf("=== Система ===%n");
-            txtWriter.printf("Ядер CPU: %d%n", cores);
-            txtWriter.printf("Тестовый набор: %d простых чисел (~10^7)%n%n", testData.length);
+            StringBuilder report = new StringBuilder();
+            report.append("=== PRIME CHECKER BENCHMARK REPORT ===\n\n");
+            report.append("Threaded thread counts: 1, 2, 4, 8\n");
+            report.append("Parallel stream parallelism: ").append(PARALLEL_STREAM_THREADS).append('\n');
+            report.append("Warmup iterations: ").append(WARMUP_ITERATIONS).append('\n');
+            report.append("Measurement iterations: ").append(MEASURE_ITERATIONS).append('\n');
+            report.append("Datasets contain only prime numbers.\n\n");
 
-            warmUp(testData);
+            for (Map.Entry<String, int[]> scenarioEntry : scenarios.entrySet()) {
+                String scenarioName = scenarioEntry.getKey();
+                int[] numbers = scenarioEntry.getValue();
 
-            // Бенчмарк
-            System.out.println("=== Результаты ===\n");
+                System.out.println(">>> Сценарий: " + scenarioName + " (size = " + numbers.length + ")");
 
-            double seqTime = testMethod("Sequential", new SequentialPrimeChecker(),
-                    testData, 1, 0.0, csvWriter, txtWriter);
+                List<BenchmarkCase> benchmarkCases = buildBenchmarkCases();
 
-            double t2Time = testMethod("Threaded", new ThreadedPrimeChecker(2),
-                    testData, 2, seqTime, csvWriter, txtWriter);
+                for (int i = 0; i < WARMUP_ITERATIONS; i++) {
+                    for (BenchmarkCase benchmarkCase : benchmarkCases) {
+                        boolean result = benchmarkCase.checker.hasNonPrime(numbers);
+                        if (result) {
+                            throw new IllegalStateException("Ожидалось false, так как набор состоит только из простых чисел");
+                        }
+                    }
+                }
 
-            double t4Time = testMethod("Threaded", new ThreadedPrimeChecker(4),
-                    testData, 4, seqTime, csvWriter, txtWriter);
+                List<ResultRow> resultRows = new ArrayList<>();
 
-            double t8Time = testMethod("Threaded", new ThreadedPrimeChecker(8),
-                    testData, 8, seqTime, csvWriter, txtWriter);
+                for (int iteration = 1; iteration <= MEASURE_ITERATIONS; iteration++) {
+                    for (BenchmarkCase benchmarkCase : benchmarkCases) {
+                        long start = System.nanoTime();
+                        boolean result = benchmarkCase.checker.hasNonPrime(numbers);
+                        long end = System.nanoTime();
 
-            double psTime = testMethod("ParallelStream", new ParallelStreamPrimeChecker(),
-                    testData, cores, seqTime, csvWriter, txtWriter);
+                        if (result) {
+                            throw new IllegalStateException("Ожидалось false, так как набор состоит только из простых чисел");
+                        }
 
-            // Анализ
-            analyze(seqTime, t2Time, t4Time, t8Time, psTime, cores, txtWriter);
+                        resultRows.add(new ResultRow(
+                                scenarioName,
+                                benchmarkCase.algorithmName,
+                                benchmarkCase.threadCount,
+                                iteration,
+                                end - start
+                        ));
+                    }
+                }
 
-            System.out.println("\nГотово! Проверь файлы:");
-            System.out.println("   " + CSV_FILE);
-            System.out.println("   " + TXT_FILE);
+                Path csvFile = outputDir.resolve(scenarioName + ".csv");
+                writeRawCsv(csvFile, resultRows);
 
-        } catch (IOException e) {
-            System.err.println("Ошибка записи файлов: " + e.getMessage());
+                report.append("SCENARIO: ").append(scenarioName).append('\n');
+                report.append("Array size: ").append(numbers.length).append('\n');
+                report.append("First 10 numbers: ").append(preview(numbers, 10)).append('\n');
+                report.append('\n');
+
+                appendScenarioStats(report, resultRows);
+
+                report.append('\n');
+                report.append("--------------------------------------------------\n\n");
+
+                System.out.println("CSV сохранён: " + csvFile.toAbsolutePath());
+            }
+
+            Path reportFile = outputDir.resolve("benchmark_report.txt");
+            Files.writeString(reportFile, report.toString());
+
+            System.out.println();
+            System.out.println("=== ГОТОВО ===");
+            System.out.println("TXT отчёт: " + reportFile.toAbsolutePath());
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    private static double testMethod(String method, PrimeChecker checker,
-                                     int[] data, int threads, double seqBaseline,
-                                     PrintWriter csv, PrintWriter txt) {
-        double timeSeconds = measureAverage(checker, data);
+    /**
+     * Формирует список вариантов алгоритмов для тестирования.
+     *
+     * @return список конфигураций бенчмарка
+     */
+    private static List<BenchmarkCase> buildBenchmarkCases() {
+        List<BenchmarkCase> cases = new ArrayList<>();
+        cases.add(new BenchmarkCase("sequential", 1, new SequentialPrimeChecker()));
 
-        double speedup = threads == 1 ? 1.0 : seqBaseline / timeSeconds;
-
-        csv.printf(Locale.US, "%s,%d,%.4f,%.2f%n", method, threads, timeSeconds, speedup);
-        txt.printf("%-15s (%d пот.): %6.4f с  |  ×%.2fx%n",
-                method, threads, timeSeconds, speedup);
-        System.out.printf("   %-15s (%d пот.): %6.4f с  |  ×%.2fx%n",
-                method, threads, timeSeconds, speedup);
-
-        return timeSeconds;
-    }
-
-    private static double measureAverage(PrimeChecker checker, int[] data) {
-        // Прогрев
-        for (int i = 0; i < 5; i++) {
-            checker.hasNonPrime(data);
+        for (int threads : THREAD_COUNTS) {
+            cases.add(new BenchmarkCase("threaded", threads, new ThreadedPrimeChecker(threads)));
         }
 
-        // 10 замеров
-        long[] times = new long[10];
-        for (int i = 0; i < 10; i++) {
-            long start = System.nanoTime();
-            checker.hasNonPrime(data);
-            times[i] = System.nanoTime() - start;
-        }
-
-        return Arrays.stream(times).average().getAsDouble() / 1_000_000_000.0;
+        cases.add(new BenchmarkCase("parallel_stream", PARALLEL_STREAM_THREADS, new ParallelStreamPrimeChecker()));
+        return cases;
     }
 
-    private static void analyze(double seq, double t2, double t4, double t8, double ps,
-                                int cores, PrintWriter txt) {
-        double bestTime = Math.min(Math.min(t2, t4), Math.min(t8, ps));
-        double maxSpeedup = seq / bestTime;
+    /**
+     * Сохраняет сырые результаты измерений в CSV-файл.
+     *
+     * @param file путь к файлу
+     * @param rows список измерений
+     * @throws IOException если произошла ошибка записи
+     */
+    private static void writeRawCsv(Path file, List<ResultRow> rows) throws IOException {
+        try (BufferedWriter writer = Files.newBufferedWriter(
+                file,
+                StandardOpenOption.CREATE,
+                StandardOpenOption.TRUNCATE_EXISTING,
+                StandardOpenOption.WRITE)) {
 
-        txt.println("\n=== Итоговый анализ ===");
-        txt.printf("Последовательное время: %.4f с%n", seq);
-        txt.printf("Лучшее параллельное:   %.4f с (×%.2fx)%n", bestTime, maxSpeedup);
-        txt.printf("Эффективность на %d ядрах: %.1f%%%n", cores, maxSpeedup / cores * 100);
-        txt.printf("Рекомендация: Threaded-%d (оптимально)%n",
-                (t2 < t4 ? 2 : t4 < t8 ? 4 : 8));
-    }
+            writer.write("scenario,algorithm,thread_count,iteration,time_ns,time_ms,label");
+            writer.newLine();
 
-    private static void warmUp(int[] data) {
-        PrimeChecker[] checkers = {
-                new SequentialPrimeChecker(),
-                new ThreadedPrimeChecker(4),
-                new ParallelStreamPrimeChecker()
-        };
-
-        for (PrimeChecker checker : checkers) {
-            for (int i = 0; i < 3; i++) {
-                checker.hasNonPrime(data);
+            for (ResultRow row : rows) {
+                writer.write(String.format(
+                        Locale.US,
+                        "%s,%s,%d,%d,%d,%.6f,%s",
+                        row.scenarioName,
+                        row.algorithmName,
+                        row.threadCount,
+                        row.iteration,
+                        row.elapsedNs,
+                        row.elapsedNs / 1_000_000.0,
+                        buildLabel(row.algorithmName, row.threadCount)
+                ));
+                writer.newLine();
             }
         }
     }
 
-    /** Генерация БОЛЬШИХ простых чисел ~10^7 */
-    private static int[] generateLargePrimes(int count) {
-        int[] primes = new int[count];
-        int num = 10_000_000; // старт с 10M
-        int found = 0;
+    /**
+     * Добавляет в текстовый отчёт статистику по сценарию.
+     *
+     * @param report текст отчёта
+     * @param rows сырые результаты измерений
+     */
+    private static void appendScenarioStats(StringBuilder report, List<ResultRow> rows) {
+        Map<String, List<Double>> grouped = new LinkedHashMap<>();
 
-        while (found < count) {
-            if (PrimeChecker.isPrime(num)) {
-                primes[found++] = num;
-            }
-            num++;
+        for (ResultRow row : rows) {
+            String key = buildLabel(row.algorithmName, row.threadCount);
+            grouped.computeIfAbsent(key, k -> new ArrayList<>())
+                    .add(row.elapsedNs / 1_000_000.0);
         }
-        return primes;
+
+        List<Double> sequentialValues = grouped.get("Sequential");
+        if (sequentialValues == null || sequentialValues.isEmpty()) {
+            throw new IllegalStateException("Не найдены результаты для Sequential");
+        }
+
+        double sequentialMean = mean(sequentialValues);
+
+        report.append(String.format(
+                Locale.US,
+                "%-24s %-12s %-12s %-12s %-12s %-12s%n",
+                "Algorithm", "Mean(ms)", "Min(ms)", "Max(ms)", "CI90(ms)", "Speedup"
+        ));
+
+        for (Map.Entry<String, List<Double>> entry : grouped.entrySet()) {
+            List<Double> values = entry.getValue();
+            double mean = mean(values);
+            double min = min(values);
+            double max = max(values);
+            double ci90 = confidenceInterval90(values);
+            double speedup = sequentialMean / mean;
+
+            report.append(String.format(
+                    Locale.US,
+                    "%-24s %-12.3f %-12.3f %-12.3f %-12.3f %-12.3f%n",
+                    entry.getKey(),
+                    mean,
+                    min,
+                    max,
+                    ci90,
+                    speedup
+            ));
+        }
+    }
+
+    /**
+     * Возвращает удобное имя алгоритма для отчёта и CSV.
+     *
+     * @param algorithmName внутреннее имя алгоритма
+     * @param threadCount количество потоков
+     * @return читаемая подпись алгоритма
+     */
+    private static String buildLabel(String algorithmName, int threadCount) {
+        if ("sequential".equals(algorithmName)) {
+            return "Sequential";
+        }
+        if ("threaded".equals(algorithmName)) {
+            return "Threaded " + threadCount;
+        }
+        return "Parallel Stream";
+    }
+
+    /**
+     * Генерирует массив случайных небольших простых чисел.
+     *
+     * @param size размер массива
+     * @param maxValue верхняя граница поиска простых чисел
+     * @param seed начальное значение генератора случайных чисел
+     * @return массив простых чисел
+     */
+    private static int[] generateSmallPrimes(int size, int maxValue, long seed) {
+        List<Integer> primes = new ArrayList<>();
+
+        for (int n = 2; n <= maxValue; n++) {
+            if (PrimeChecker.isPrime(n)) {
+                primes.add(n);
+            }
+        }
+
+        if (primes.isEmpty()) {
+            throw new IllegalStateException("Не удалось сгенерировать малые простые числа");
+        }
+
+        Random random = new Random(seed);
+        int[] result = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            result[i] = primes.get(random.nextInt(primes.size()));
+        }
+
+        return result;
+    }
+
+    /**
+     * Генерирует массив случайных больших простых чисел.
+     *
+     * @param size размер массива
+     * @param bitLength длина числа в битах
+     * @param seed начальное значение генератора случайных чисел
+     * @return массив простых чисел
+     */
+    private static int[] generateLargePrimes(int size, int bitLength, long seed) {
+        Random random = new Random(seed);
+        int[] result = new int[size];
+
+        for (int i = 0; i < size; i++) {
+            int value;
+            do {
+                value = BigInteger.probablePrime(bitLength, random).intValue();
+            } while (value <= 1);
+
+            result[i] = value;
+        }
+
+        return result;
+    }
+
+    /**
+     * Формирует строку с первыми элементами массива для отчёта.
+     *
+     * @param numbers массив чисел
+     * @param limit максимальное число выводимых элементов
+     * @return строковое представление начала массива
+     */
+    private static String preview(int[] numbers, int limit) {
+        StringBuilder sb = new StringBuilder("[");
+        int actualLimit = Math.min(limit, numbers.length);
+
+        for (int i = 0; i < actualLimit; i++) {
+            if (i > 0) {
+                sb.append(", ");
+            }
+            sb.append(numbers[i]);
+        }
+
+        if (numbers.length > actualLimit) {
+            sb.append(", ...");
+        }
+
+        sb.append("]");
+        return sb.toString();
+    }
+
+    /**
+     * Вычисляет среднее значение списка.
+     *
+     * @param values список значений
+     * @return среднее значение
+     */
+    private static double mean(List<Double> values) {
+        double sum = 0.0;
+        for (double value : values) {
+            sum += value;
+        }
+        return sum / values.size();
+    }
+
+    /**
+     * Находит минимальное значение в списке.
+     *
+     * @param values список значений
+     * @return минимальное значение
+     */
+    private static double min(List<Double> values) {
+        double result = Double.POSITIVE_INFINITY;
+        for (double value : values) {
+            result = Math.min(result, value);
+        }
+        return result;
+    }
+
+    /**
+     * Находит максимальное значение в списке.
+     *
+     * @param values список значений
+     * @return максимальное значение
+     */
+    private static double max(List<Double> values) {
+        double result = Double.NEGATIVE_INFINITY;
+        for (double value : values) {
+            result = Math.max(result, value);
+        }
+        return result;
+    }
+
+    /**
+     * Вычисляет выборочное стандартное отклонение.
+     *
+     * @param values список значений
+     * @return стандартное отклонение
+     */
+    private static double standardDeviation(List<Double> values) {
+        if (values.size() < 2) {
+            return 0.0;
+        }
+
+        double mean = mean(values);
+        double sum = 0.0;
+
+        for (double value : values) {
+            double diff = value - mean;
+            sum += diff * diff;
+        }
+
+        return Math.sqrt(sum / (values.size() - 1));
+    }
+
+    /**
+     * Вычисляет 90%-й доверительный интервал.
+     *
+     * @param values список значений
+     * @return половина ширины доверительного интервала
+     */
+    private static double confidenceInterval90(List<Double> values) {
+        if (values.size() < 2) {
+            return 0.0;
+        }
+
+        double stdDev = standardDeviation(values);
+        return Z_90 * stdDev / Math.sqrt(values.size());
+    }
+
+    private static class BenchmarkCase {
+        private final String algorithmName;
+        private final int threadCount;
+        private final PrimeChecker checker;
+
+        /**
+         * Создаёт описание одного варианта бенчмарка.
+         *
+         * @param algorithmName имя алгоритма
+         * @param threadCount количество потоков
+         * @param checker объект проверки
+         */
+        private BenchmarkCase(String algorithmName, int threadCount, PrimeChecker checker) {
+            this.algorithmName = algorithmName;
+            this.threadCount = threadCount;
+            this.checker = checker;
+        }
+    }
+
+    private static class ResultRow {
+        private final String scenarioName;
+        private final String algorithmName;
+        private final int threadCount;
+        private final int iteration;
+        private final long elapsedNs;
+
+        /**
+         * Создаёт одну строку результата измерения.
+         *
+         * @param scenarioName имя сценария
+         * @param algorithmName имя алгоритма
+         * @param threadCount количество потоков
+         * @param iteration номер измерения
+         * @param elapsedNs время выполнения в наносекундах
+         */
+        private ResultRow(String scenarioName, String algorithmName, int threadCount, int iteration, long elapsedNs) {
+            this.scenarioName = scenarioName;
+            this.algorithmName = algorithmName;
+            this.threadCount = threadCount;
+            this.iteration = iteration;
+            this.elapsedNs = elapsedNs;
+        }
     }
 }

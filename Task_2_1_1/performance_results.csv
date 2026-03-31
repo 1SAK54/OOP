@@ -1,6 +1,0 @@
-Method,Threads,Time_s,Speedup
-Sequential,1,0.0137,1.00
-Threaded,2,0.0074,1.85
-Threaded,4,0.0047,2.94
-Threaded,8,0.0035,3.87
-ParallelStream,16,0.0022,6.12
