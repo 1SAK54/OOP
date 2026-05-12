@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.vorona.client"},{"l":"ru.nsu.vorona.server"}];updateSearchResults();
