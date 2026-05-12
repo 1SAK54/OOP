@@ -20,11 +20,11 @@ public class Courier extends Thread {
      * @param storage склад
      */
     public Courier(int courierId, int bagCapacity, int deliveryTimeMs, Storage storage) {
+        super("Courier-" + courierId);
         this.courierId = courierId;
         this.bagCapacity = bagCapacity;
         this.deliveryTimeMs = deliveryTimeMs;
         this.storage = storage;
-        setName("Courier-" + courierId);
     }
 
     /**
