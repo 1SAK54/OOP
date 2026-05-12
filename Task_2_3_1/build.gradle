@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'jacoco'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'ru.nsu.vorona'
+version = '1.0-SNAPSHOT'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+javafx {
+    version = '17.0.10'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
+
+application {
+    mainClass = 'ru.nsu.vorona.client.ClientLauncher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.register('runServer', JavaExec) {
+    group = 'application'
+    description = 'Runs snake server'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.nsu.vorona.server.ServerMain'
+}
+
+tasks.register('runClient', JavaExec) {
+    group = 'application'
+    description = 'Runs snake client'
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'ru.nsu.vorona.client.ClientLauncher'
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacocoTestReport {
+    reports {
+        xml.required = true
+    }
+}

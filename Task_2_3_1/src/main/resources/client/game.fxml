@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ru.nsu.vorona.client.GameController"
+            style="-fx-background-color: #070c1a;">
+
+    <center>
+        <Canvas fx:id="canvas" width="760" height="680"/>
+    </center>
+
+    <right>
+        <VBox spacing="18" prefWidth="240" style="-fx-background-color: #0b1024;">
+            <padding>
+                <Insets top="24" right="16" bottom="16" left="16"/>
+            </padding>
+
+            <Label text="Snake Online"
+                   style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+            <Label fx:id="playerLabel"
+                   text="Player"
+                   style="-fx-text-fill: #ffc440; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+            <Label fx:id="scoreLabel"
+                   text="Score: 0"
+                   style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+
+            <Label fx:id="respawnLabel"
+                   text=""
+                   style="-fx-text-fill: #ff5c7a; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+
+            <Label fx:id="leaderboardLabel"
+                   text="Leaderboard"
+                   style="-fx-text-fill: white; -fx-font-size: 16px;"/>
+        </VBox>
+    </right>
+
+</BorderPane>
