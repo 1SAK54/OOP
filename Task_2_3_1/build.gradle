@@ -9,17 +9,18 @@ group = 'ru.nsu.vorona'
 version = '1.0-SNAPSHOT'
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_21
-    targetCompatibility = JavaVersion.VERSION_21
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 javafx {
-    version = '21'
+    version = '17.0.10'
     modules = ['javafx.controls', 'javafx.fxml']
 }
 
 application {
-    mainClass = 'ru.nsu.vorona.client.ClientLauncher'
+    mainClass = 'ru.nsu.vorona.client.view.ClientLauncher'
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -30,14 +31,20 @@ tasks.register('runServer', JavaExec) {
     group = 'application'
     description = 'Runs snake server'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'ru.nsu.vorona.server.ServerMain'
+    mainClass = 'ru.nsu.vorona.server.app.ServerMain'
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 tasks.register('runClient', JavaExec) {
     group = 'application'
     description = 'Runs snake client'
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'ru.nsu.vorona.client.ClientLauncher'
+    mainClass = 'ru.nsu.vorona.client.view.ClientLauncher'
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
 }
 
 dependencies {

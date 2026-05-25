@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ru.nsu.vorona.client.GameController"
+            fx:controller="ru.nsu.vorona.client.view.GameController"
             style="-fx-background-color: #070c1a;">
 
     <center>
