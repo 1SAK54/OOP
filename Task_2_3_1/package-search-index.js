@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.vorona.client"},{"l":"ru.nsu.vorona.server"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ru.nsu.vorona.client.model"},{"l":"ru.nsu.vorona.client.network"},{"l":"ru.nsu.vorona.client.view"},{"l":"ru.nsu.vorona.server.app"},{"l":"ru.nsu.vorona.server.config"},{"l":"ru.nsu.vorona.server.model"},{"l":"ru.nsu.vorona.server.network"},{"l":"ru.nsu.vorona.server.service"}];updateSearchResults();

@@ -1,2 +1,8 @@
-ru.nsu.vorona.client
-ru.nsu.vorona.server
+ru.nsu.vorona.client.model
+ru.nsu.vorona.client.network
+ru.nsu.vorona.client.view
+ru.nsu.vorona.server.app
+ru.nsu.vorona.server.config
+ru.nsu.vorona.server.model
+ru.nsu.vorona.server.network
+ru.nsu.vorona.server.service
