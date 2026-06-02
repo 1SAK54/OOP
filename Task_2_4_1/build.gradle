@@ -1,0 +1,79 @@
+plugins {
+    id 'java'
+    id 'groovy'
+    id 'application'
+    id 'jacoco'
+}
+
+group = 'ru.nsu.vorona'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = []
+        }
+        groovy {
+            srcDirs = ['src/main/java', 'src/main/groovy']
+        }
+    }
+
+    test {
+        java {
+            srcDirs = []
+        }
+        groovy {
+            srcDirs = ['src/test/java', 'src/test/groovy']
+        }
+    }
+}
+
+application {
+    mainClass = 'ru.nsu.vorona.Main'
+}
+
+dependencies {
+    implementation 'org.apache.groovy:groovy:4.0.24'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+test {
+    useJUnitPlatform()
+    finalizedBy jacocoTestReport
+}
+
+jacocoTestReport {
+    dependsOn test
+
+    reports {
+        xml.required = true
+        html.required = true
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(GroovyCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(JavaExec).configureEach {
+    javaLauncher = javaToolchains.launcherFor {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
