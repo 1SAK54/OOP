@@ -1,6 +1,6 @@
 package ru.nsu.vorona.server.network;
 
-import ru.nsu.vorona.server.model.Cell;
+import ru.nsu.vorona.core.model.Cell;
 import ru.nsu.vorona.server.model.PlayerSnake;
 
 import java.util.ArrayList;

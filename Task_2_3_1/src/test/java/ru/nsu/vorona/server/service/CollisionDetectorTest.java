@@ -1,8 +1,8 @@
 package ru.nsu.vorona.server.service;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.vorona.server.model.Cell;
-import ru.nsu.vorona.server.model.Direction;
+import ru.nsu.vorona.core.model.Cell;
+import ru.nsu.vorona.core.model.Direction;
 import ru.nsu.vorona.server.model.MoveInfo;
 import ru.nsu.vorona.server.model.PlayerSnake;
 

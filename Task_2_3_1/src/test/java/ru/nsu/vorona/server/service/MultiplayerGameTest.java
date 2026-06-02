@@ -2,7 +2,7 @@ package ru.nsu.vorona.server.service;
 
 import org.junit.jupiter.api.Test;
 import ru.nsu.vorona.client.model.GameState;
-import ru.nsu.vorona.server.model.Direction;
+import ru.nsu.vorona.core.model.Direction;
 
 import static org.junit.jupiter.api.Assertions.*;
 

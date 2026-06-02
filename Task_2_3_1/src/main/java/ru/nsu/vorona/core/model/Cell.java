@@ -1,4 +1,4 @@
-package ru.nsu.vorona.client.model;
+package ru.nsu.vorona.core.model;
 
 /**
  * Клетка игрового поля

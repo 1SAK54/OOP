@@ -1,7 +1,7 @@
 package ru.nsu.vorona.client.network;
 
 import org.junit.jupiter.api.Test;
-import ru.nsu.vorona.client.model.Direction;
+import ru.nsu.vorona.core.model.Direction;
 import ru.nsu.vorona.client.model.GameState;
 
 import java.io.BufferedReader;

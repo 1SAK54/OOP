@@ -1,5 +1,7 @@
 package ru.nsu.vorona.server.model;
 
+import ru.nsu.vorona.core.model.Cell;
+
 /**
  * Данные будущего хода змейки
  *

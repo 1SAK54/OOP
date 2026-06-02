@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import ru.nsu.vorona.client.model.Direction;
+import ru.nsu.vorona.core.model.Direction;
 import ru.nsu.vorona.client.model.GameState;
 import ru.nsu.vorona.client.model.LeaderboardItem;
 import ru.nsu.vorona.client.model.PlayerState;

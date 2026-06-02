@@ -1,6 +1,7 @@
 package ru.nsu.vorona.client.model;
 
 import org.junit.jupiter.api.Test;
+import ru.nsu.vorona.core.model.Cell;
 
 import static org.junit.jupiter.api.Assertions.*;
 

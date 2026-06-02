@@ -1,5 +1,8 @@
 package ru.nsu.vorona.server.model;
 
+import ru.nsu.vorona.core.model.Cell;
+import ru.nsu.vorona.core.model.Direction;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;

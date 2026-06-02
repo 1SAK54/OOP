@@ -1,7 +1,7 @@
 package ru.nsu.vorona.server.network;
 
 import ru.nsu.vorona.server.service.MultiplayerGame;
-import ru.nsu.vorona.server.model.Direction;
+import ru.nsu.vorona.core.model.Direction;
 
 import java.io.BufferedReader;
 import java.io.IOException;

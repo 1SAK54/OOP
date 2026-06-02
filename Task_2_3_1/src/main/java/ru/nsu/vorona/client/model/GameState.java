@@ -1,5 +1,7 @@
 package ru.nsu.vorona.client.model;
 
+import ru.nsu.vorona.core.model.Cell;
+
 import java.util.ArrayList;
 import java.util.List;
 

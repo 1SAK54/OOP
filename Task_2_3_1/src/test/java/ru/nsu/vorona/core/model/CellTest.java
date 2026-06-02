@@ -1,4 +1,4 @@
-package ru.nsu.vorona.server.model;
+package ru.nsu.vorona.core.model;
 
 import org.junit.jupiter.api.Test;
 

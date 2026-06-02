@@ -6,7 +6,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import ru.nsu.vorona.client.model.Cell;
+import ru.nsu.vorona.core.model.Cell;
 import ru.nsu.vorona.client.model.GameState;
 import ru.nsu.vorona.client.model.PlayerState;
 
