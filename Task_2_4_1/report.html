@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>OOP Checker Report</title>
+<style>body{font-family:Arial,sans-serif;margin:24px;}table{border-collapse:collapse;width:100%;margin-bottom:24px;}th,td{border:1px solid #ccc;padding:8px;text-align:left;vertical-align:top;}th{background:#f2f2f2;}.ok{color:green;font-weight:bold;}.fail{color:#b00020;font-weight:bold;}.skip{color:#777;font-weight:bold;}</style>
+</head>
+<body>
+<h1>Отчёт автоматической проверки ООП</h1>
+<h2>Итоги по студентам</h2>
+<table>
+<tr><th>Студент</th><th>GitHub</th><th>Баллы</th></tr>
+<tr><td>Писарев Артем</td><td>Artem351</td><td>2.80</td></tr>
+<tr><td>Бабич Руслана</td><td>Rasymptote</td><td>2.72</td></tr>
+</table>
+<h2>Подробные результаты</h2>
+<h3>Писарев Артем</h3>
+<table>
+<tr><th>Задача</th><th>Компиляция</th><th>Javadoc</th><th>Style</th><th>Тесты</th><th>Дата сдачи</th><th>Баллы</th></tr>
+<tr><td>Task_2_1_1<br>Простые числа</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="ok">OK</span><br>passed: 2, failed: 0, skipped: 0</td><td>2026-02-06</td><td>2.00 / 1.00</td></tr>
+<tr><td>Task_2_2_1<br>Пиццерия</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="ok">OK</span><br>passed: 10, failed: 0, skipped: 0</td><td>2026-04-07</td><td>0.80 / 1.00</td></tr>
+<tr><td>Task_2_3_1<br>Змейка</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="ok">OK</span><br>passed: 13, failed: 0, skipped: 0</td><td>2026-05-19</td><td>0.00 / 1.00</td></tr>
+</table>
+<h3>Бабич Руслана</h3>
+<table>
+<tr><th>Задача</th><th>Компиляция</th><th>Javadoc</th><th>Style</th><th>Тесты</th><th>Дата сдачи</th><th>Баллы</th></tr>
+<tr><td>Task_2_1_1<br>Простые числа</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="ok">OK</span><br>passed: 34, failed: 0, skipped: 0</td><td>2026-02-07</td><td>1.00 / 1.00</td></tr>
+<tr><td>Task_2_2_1<br>Пиццерия</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="fail">FAIL</span><br>&gt; Task :compileJava UP-TO-DATE
+&gt; Task :processResources NO-SOURCE
+&gt; Task :classes UP-TO-DATE
+
+&gt; Task :compileTestJava FAILED
+C:\Users\user\Desktop\Task_2_4_1\.oop-checker-work\repositories\Rasymptote\Task_2_2_1\src\test\java\ru\nsu\babich\PizzeriaSimulatorTest.java:23: error: cannot find symbol
+                                storage, new ConsoleLogger()),
+                                             ^
+  symbol:   class ConsoleLogger
+  location: class PizzeriaSimulatorTest
+C:\Users\user\De<br>passed: 0, failed: 0, skipped: 0</td><td>2026-03-17</td><td>1.40 / 1.00</td></tr>
+<tr><td>Task_2_3_1<br>Змейка</td><td><span class="ok">OK</span></td><td><span class="ok">OK</span></td><td><span class="skip">SKIP</span><br>Style task not found</td><td><span class="ok">OK</span><br>passed: 0, failed: 0, skipped: 0</td><td>2026-05-12</td><td>0.32 / 1.00</td></tr>
+</table>
+<h2>Контрольные точки</h2>
+<table>
+<tr><th>Студент</th><th>КТ-1<br>2026-04-30</th><th>Итог<br>2026-06-01</th></tr>
+<tr><td>Писарев Артем</td><td>2.80 / 2.00<br>Оценка: 5</td><td>2.80 / 3.00<br>Оценка: 5</td></tr>
+<tr><td>Бабич Руслана</td><td>2.40 / 2.00<br>Оценка: 5</td><td>2.72 / 3.00<br>Оценка: 5</td></tr>
+</table>
+</body>
+</html>
