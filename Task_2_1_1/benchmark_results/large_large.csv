@@ -1,0 +1,31 @@
+scenario,algorithm,thread_count,iteration,time_ns,time_ms,label
+large_large,sequential,1,1,7635900,7.635900,Sequential
+large_large,threaded,1,1,8142300,8.142300,Threaded 1
+large_large,threaded,2,1,4511800,4.511800,Threaded 2
+large_large,threaded,4,1,2578300,2.578300,Threaded 4
+large_large,threaded,8,1,1927900,1.927900,Threaded 8
+large_large,parallel_stream,8,1,1186100,1.186100,Parallel Stream
+large_large,sequential,1,2,7679100,7.679100,Sequential
+large_large,threaded,1,2,7982400,7.982400,Threaded 1
+large_large,threaded,2,2,4592800,4.592800,Threaded 2
+large_large,threaded,4,2,2585700,2.585700,Threaded 4
+large_large,threaded,8,2,1920400,1.920400,Threaded 8
+large_large,parallel_stream,8,2,1348000,1.348000,Parallel Stream
+large_large,sequential,1,3,7593300,7.593300,Sequential
+large_large,threaded,1,3,7961600,7.961600,Threaded 1
+large_large,threaded,2,3,4392200,4.392200,Threaded 2
+large_large,threaded,4,3,2665200,2.665200,Threaded 4
+large_large,threaded,8,3,2152600,2.152600,Threaded 8
+large_large,parallel_stream,8,3,1208500,1.208500,Parallel Stream
+large_large,sequential,1,4,7601700,7.601700,Sequential
+large_large,threaded,1,4,7624500,7.624500,Threaded 1
+large_large,threaded,2,4,4047500,4.047500,Threaded 2
+large_large,threaded,4,4,2736200,2.736200,Threaded 4
+large_large,threaded,8,4,2145700,2.145700,Threaded 8
+large_large,parallel_stream,8,4,1045100,1.045100,Parallel Stream
+large_large,sequential,1,5,7016900,7.016900,Sequential
+large_large,threaded,1,5,7323000,7.323000,Threaded 1
+large_large,threaded,2,5,3500800,3.500800,Threaded 2
+large_large,threaded,4,5,1937000,1.937000,Threaded 4
+large_large,threaded,8,5,2113600,2.113600,Threaded 8
+large_large,parallel_stream,8,5,1102700,1.102700,Parallel Stream

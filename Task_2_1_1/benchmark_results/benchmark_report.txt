@@ -1,0 +1,64 @@
+=== PRIME CHECKER BENCHMARK REPORT ===
+
+Threaded thread counts: 1, 2, 4, 8
+Parallel stream parallelism: 8
+Warmup iterations: 2
+Measurement iterations: 5
+Datasets contain only prime numbers.
+
+SCENARIO: small_small
+Array size: 300
+First 10 numbers: [98251, 57923, 97001, 76673, 96557, 3061, 7643, 18061, 94933, 293, ...]
+
+Algorithm                Mean(ms)     Min(ms)      Max(ms)      CI90(ms)     Speedup     
+Sequential               0.098        0.062        0.138        0.020        1.000       
+Threaded 1               0.396        0.284        0.488        0.060        0.246       
+Threaded 2               0.412        0.325        0.471        0.042        0.237       
+Threaded 4               0.626        0.595        0.648        0.015        0.156       
+Threaded 8               1.068        0.853        1.333        0.135        0.091       
+Parallel Stream          0.363        0.300        0.475        0.049        0.269       
+
+--------------------------------------------------
+
+SCENARIO: large_small
+Array size: 5000
+First 10 numbers: [92177, 25537, 2969, 5009, 71987, 38459, 31189, 67349, 95143, 18947, ...]
+
+Algorithm                Mean(ms)     Min(ms)      Max(ms)      CI90(ms)     Speedup     
+Sequential               1.410        1.331        1.504        0.055        1.000       
+Threaded 1               1.874        1.819        2.024        0.062        0.752       
+Threaded 2               1.301        1.202        1.452        0.076        1.084       
+Threaded 4               1.019        0.936        1.140        0.077        1.384       
+Threaded 8               1.358        0.922        1.919        0.263        1.038       
+Parallel Stream          0.706        0.657        0.750        0.028        1.996       
+
+--------------------------------------------------
+
+SCENARIO: small_large
+Array size: 300
+First 10 numbers: [13636283, 16162999, 11144647, 9939893, 11164721, 11930473, 11157473, 9195671, 15343519, 11975687, ...]
+
+Algorithm                Mean(ms)     Min(ms)      Max(ms)      CI90(ms)     Speedup     
+Sequential               1.531        1.502        1.590        0.025        1.000       
+Threaded 1               1.861        1.668        2.023        0.097        0.823       
+Threaded 2               1.126        1.093        1.187        0.030        1.359       
+Threaded 4               0.969        0.851        1.074        0.068        1.579       
+Threaded 8               1.208        1.025        1.358        0.089        1.267       
+Parallel Stream          0.463        0.338        0.584        0.071        3.304       
+
+--------------------------------------------------
+
+SCENARIO: large_large
+Array size: 1500
+First 10 numbers: [8539673, 14453669, 10781717, 11588063, 13098583, 10623553, 10042639, 14040287, 9444839, 15593173, ...]
+
+Algorithm                Mean(ms)     Min(ms)      Max(ms)      CI90(ms)     Speedup     
+Sequential               7.505        7.017        7.679        0.202        1.000       
+Threaded 1               7.807        7.323        8.142        0.243        0.961       
+Threaded 2               4.209        3.501        4.593        0.329        1.783       
+Threaded 4               2.500        1.937        2.736        0.237        3.002       
+Threaded 8               2.052        1.920        2.153        0.087        3.658       
+Parallel Stream          1.178        1.045        1.348        0.085        6.371       
+
+--------------------------------------------------
+
