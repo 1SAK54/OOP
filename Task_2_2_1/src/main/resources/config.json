@@ -1,0 +1,14 @@
+{
+  "workingTimeMs": 10000,
+  "storageCapacity": 5,
+  "ordersCount": 20,
+  "orderIntervalMs": 300,
+  "bakers": [
+    { "id": 1, "bakeTimeMs": 1200 },
+    { "id": 2, "bakeTimeMs": 1800 }
+  ],
+  "couriers": [
+    { "id": 1, "bagCapacity": 2, "deliveryTimeMs": 2000 },
+    { "id": 2, "bagCapacity": 3, "deliveryTimeMs": 2500 }
+  ]
+}
